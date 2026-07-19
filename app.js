@@ -517,7 +517,7 @@ window.addEventListener("load",()=>setTimeout(startCharacterMotionLoop,500));
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.5.0");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.5.0-b3");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

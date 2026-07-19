@@ -1,4 +1,3 @@
-
 :root{--purple:#8363a8;--deep:#60477d;--pale:#efe7f8;--cream:#fffaf2;--pink:#f6dce8;--ink:#43384b;--muted:#817589;--white:#fff;--green:#dff4e5;--red:#ffe2e7;--yellow:#ffecae;--shadow:0 14px 35px rgba(83,57,108,.12)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,"Noto Sans KR",sans-serif;color:var(--ink);background:linear-gradient(180deg,#eee7f7,#fff8ef)}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(#8e71ad 1px,transparent 1px);background-size:24px 24px}
@@ -19,8 +18,6 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
 
 .quiz-word{white-space:pre-line}.quiz-option{line-height:1.35}
 
-
-/* V3.3 usability update */
 .lesson-tab{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:max-content}
 .lesson-tab small{font-size:10px;opacity:.75}.lesson-tab.active small{color:#fff;opacity:.9}
 .lesson-progress-card{margin:3px 2px 0;padding:10px 12px;background:rgba(255,255,255,.78);border:1px solid var(--pale);border-radius:16px;font-size:12px;font-weight:800}
@@ -34,12 +31,9 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
 }
 @media(max-width:350px){.hero{grid-template-columns:92px 1fr}.hero-cat{width:92px}.speech{font-size:12px}.meta-grid{grid-template-columns:1fr}.stats-grid{gap:7px}}
 
-
-/* V3.4 character guides and French food reward system */
 .cat-name{margin:-6px 0 12px;text-align:center;font-size:.82rem;font-weight:800;color:#6d5a85}.ingredient-card{margin-bottom:16px}.ingredient-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}.ingredient-chip{background:#fff8ed;border:1px solid #eadfcd;border-radius:14px;padding:10px 6px;text-align:center}.ingredient-chip span{display:block;font-size:1.45rem}.ingredient-chip b{display:block;font-size:.88rem}.ingredient-chip small{display:block;color:#85756a}.recipe-filters{display:flex;gap:8px;overflow:auto;margin:0 0 14px}.recipe-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:12px}.recipe-card{background:#fff;border:1px solid #e6def0;border-radius:20px;padding:15px;box-shadow:0 6px 16px rgba(83,63,105,.08)}.recipe-card.made{border-color:#d2b8f0;background:#faf6ff}.recipe-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.recipe-emoji{font-size:2.4rem}.recipe-title b{display:block;font-size:1rem}.recipe-title small{display:block;color:#766b80;line-height:1.35}.difficulty{font-size:.72rem;padding:4px 8px;border-radius:999px;background:#f2ecf8;color:#6e5687;font-weight:800}.cost-list{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.cost{font-size:.78rem;padding:5px 8px;border-radius:10px;background:#f7f4f1}.cost.lack{background:#fff0f0;color:#a04848}.cook-btn{width:100%;border:0;border-radius:12px;padding:10px;font-weight:800;background:#8b6caf;color:#fff}.cook-btn:disabled{background:#cfc7d8}.reward-toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);z-index:20;background:#4f4168;color:white;border-radius:16px;padding:12px 18px;box-shadow:0 8px 28px rgba(0,0,0,.2);max-width:90%;text-align:center}.quiz-cat{object-fit:contain}.hero-cat{object-fit:contain}
 @media(max-width:680px){.ingredient-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.recipe-grid{grid-template-columns:1fr}.nav{overflow-x:auto}.nav button{min-width:64px}.quiz-cat{width:116px;height:116px}.hero-cat{width:120px;height:120px}}
 
-/* V3.4.2 compact mobile layout */
 .nav{grid-template-columns:repeat(5,1fr)}
 
 /* 퀴즈에서는 하단 메뉴를 숨기고 한 화면에 문제와 보기가 들어오도록 압축 */
@@ -71,8 +65,6 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
   #quizScreen .quiz-option{min-height:40px;padding:8px 12px}
 }
 
-
-/* ===== V4 BUILD 2 · HOME DASHBOARD ===== */
 .home-topbar{margin-bottom:14px}.top-actions{display:flex;gap:7px}.streak-pill{background:#fff4df;color:#a76425}.home-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:8px;min-height:292px;padding:23px 19px 16px;background:linear-gradient(145deg,#ebe0fb 0%,#f9e6ef 54%,#fff0c8 100%)}
 .home-hero:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;right:-38px;top:-44px;background:rgba(255,255,255,.48)}.home-hero:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;left:-38px;bottom:-58px;background:rgba(255,255,255,.35)}.hero-sparkles{position:absolute;right:26px;top:16px;color:#fff;font-size:22px;letter-spacing:8px;z-index:1}.hero-copy{position:relative;z-index:2;align-self:center}.hero-kicker{display:inline-block;color:#76528f;font-size:10px;letter-spacing:.16em;font-weight:900;margin-bottom:7px}.hero-copy h1{margin:0;color:#533d69;font-size:26px;line-height:1.22;letter-spacing:-.04em}.home-hero .speech{margin-top:11px;padding:11px 13px;border-radius:17px;font-size:12px;line-height:1.5;background:rgba(255,255,255,.84);box-shadow:0 7px 18px rgba(82,54,105,.08)}.hero-start{margin-top:12px;border:0;border-radius:15px;padding:11px 14px;background:#75519a;color:#fff;font-weight:900;box-shadow:0 8px 18px rgba(99,68,128,.22)}.hero-start span{margin-left:10px}.home-hero .hero-cat{position:relative;z-index:2;align-self:end;justify-self:center;width:168px;height:180px;object-fit:contain}.hero-progress{position:relative;z-index:2;grid-column:1/3;width:100%;padding-top:4px}.home-hero .levelbox{grid-column:auto;padding:0 2px;margin-bottom:5px}.home-hero .progress{height:9px;background:rgba(255,255,255,.7)}
 .home-section-title{margin-top:20px}.date-chip{font-size:11px;font-weight:900;color:#6d5a85;background:#fff;padding:7px 10px;border-radius:13px;box-shadow:0 5px 14px rgba(83,57,108,.07)}.daily-dashboard{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(150px,.8fr);gap:11px}.daily-dashboard .card{margin-top:0}.daily-main{padding:16px}.daily-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.daily-heading small,.reward-title small{display:block;color:#9b7db2;font-size:9px;letter-spacing:.12em;font-weight:900;margin-bottom:3px}.daily-heading b{display:block;font-size:16px}.daily-score{min-width:52px;text-align:center;background:#f1e8fa;color:#6a4c86;border-radius:14px;padding:8px;font-weight:900}.daily-main>.progress{margin-top:11px}.daily-body{display:grid;grid-template-columns:95px 1fr;gap:10px;align-items:center;margin:8px 0}.daily-main .food-stage{margin:0;height:92px}.daily-main .food-stage img{max-width:90px;max-height:90px}.daily-copy b{display:block;font-size:13px;line-height:1.45}.daily-copy small{display:block;margin-top:5px;color:var(--muted);font-size:10px;line-height:1.35}.daily-main .primary{margin-top:5px}.reward-preview{padding:14px;background:linear-gradient(180deg,#fff7e9,#fff)}.reward-title b{display:block;font-size:15px}.reward-ingredients{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0}.mini-ingredient{background:#fff;border:1px solid #f0e2cd;border-radius:13px;padding:8px 4px;text-align:center}.mini-ingredient span{display:block;font-size:22px}.mini-ingredient b{display:block;font-size:13px;color:#6d4f34}.mini-ingredient small{display:block;font-size:9px;color:#9a806a}.reward-link{width:100%;border:0;background:#f3e3c5;color:#7a552f;border-radius:12px;padding:9px 6px;font-size:11px;font-weight:900}
@@ -80,8 +72,6 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
 @media(max-width:520px){.home-hero{grid-template-columns:minmax(0,1fr) 130px;min-height:255px;padding:18px 15px 14px}.hero-copy h1{font-size:22px}.home-hero .hero-cat{width:132px;height:145px}.hero-start{font-size:13px}.daily-dashboard{grid-template-columns:1fr}.reward-preview{display:grid;grid-template-columns:1fr 1.7fr;gap:10px;align-items:center}.reward-ingredients{margin:0}.reward-link{grid-column:1/3}.guide-strip{gap:7px}.guide-card{padding-left:5px;padding-right:5px}.guide-card img{width:64px;height:64px}.guide-card b{font-size:12px}}
 @media(max-width:370px){.home-hero{grid-template-columns:minmax(0,1fr) 112px}.hero-copy h1{font-size:20px}.home-hero .speech{font-size:11px}.home-hero .hero-cat{width:112px;height:130px}.guide-card img{width:55px;height:55px}.guide-card small{font-size:8px}}
 
-
-/* V4 Build 3 — approved character artwork */
 .hero-trio{
   width:205px!important;
   height:175px!important;
@@ -117,7 +107,6 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
   #quizScreen .quiz-cat{width:88px;height:88px}
 }
 
-/* ===== V4 BUILD 4 · COMPACT QUIZ EXPERIENCE ===== */
 #quizScreen{padding:12px 14px 20px;background:linear-gradient(180deg,#f1eafb 0%,#fffaf3 58%,#fff 100%)}
 .quiz-topbar{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;align-items:center;margin-bottom:8px}
 .quiz-exit{width:40px;height:40px;padding:0!important;font-size:22px;color:#765c8e}
@@ -131,7 +120,7 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
 .quiz-guide-copy{text-align:left;min-width:0}
 #quizScreen .cat-name{text-align:left;margin:0 0 5px;font-size:13px;font-weight:900;color:#654980}
 .quiz-speech{position:relative;background:#fff;border:1px solid #eadff4;border-radius:16px;padding:9px 11px;font-size:12px;font-weight:800;line-height:1.4;color:#5d5267;box-shadow:0 6px 16px rgba(88,60,110,.07)}
-.quiz-speech:before{content:"";position:absolute;left:-8px;top:22px;width:14px;height:14px;background:#fff;border-left:1px solid #eadff4;border-bottom:1px solid #eadff4;transform:rotate(45deg)}
+
 #quizScreen .quiz-card{margin:0;padding:13px 14px 14px;border-radius:24px;text-align:center}
 .quiz-label{font-size:12px;font-weight:900;color:#7b6a86;line-height:1.35;margin:0 auto 4px;max-width:94%}
 .quiz-audio{border:0;border-radius:13px;background:#eef8ff;color:#41667d;padding:8px 12px;font-size:12px;font-weight:900;margin:2px 0 1px}
@@ -173,24 +162,16 @@ button{font:inherit}.app{width:min(600px,100%);min-height:100vh;margin:auto;back
   #quizScreen .example{font-size:11px;padding:6px 8px}
 }
 
-
-/* V4 Build 5 — ingredient reward system */
 .ingredient-overview{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}.ingredient-summary{display:flex;align-items:center;gap:10px;background:linear-gradient(145deg,#fff7e7,#fff);border:1px solid #efdfc3;border-radius:18px;padding:13px 14px;box-shadow:0 6px 16px rgba(98,73,39,.07)}.ingredient-summary>span{font-size:28px}.ingredient-summary small{display:block;color:#8d7967;font-size:11px;font-weight:800}.ingredient-summary b{display:block;margin-top:2px;color:#5d4634;font-size:16px}.reward-history-card{margin:12px 0 16px}.reward-history{display:grid;gap:7px;margin-top:10px}.reward-history-row{display:grid;grid-template-columns:32px 1fr auto;gap:8px;align-items:center;background:#faf7ff;border:1px solid #ebe2f4;border-radius:13px;padding:8px 10px}.reward-history-row span{font-size:22px}.reward-history-row b{font-size:12px}.reward-history-row small{font-size:10px;color:#8e8197}.reward-empty{padding:12px;text-align:center;color:#988ca1;font-size:12px;background:#faf8fc;border-radius:12px}.feedback.success{line-height:1.45}.reward-toast{animation:rewardPop .32s ease-out}.reward-toast::before{content:"🎁 ";}@keyframes rewardPop{from{opacity:0;transform:translate(-50%,18px) scale(.88)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
 @media(max-width:520px){.ingredient-summary{padding:10px}.ingredient-summary>span{font-size:24px}.ingredient-summary b{font-size:13px}.reward-history-row{grid-template-columns:28px 1fr}.reward-history-row small{grid-column:2}}
 
-
-/* V4 Build 6 — cooking experience */
 .kitchen-hero{display:grid;grid-template-columns:1fr 105px;align-items:center;gap:14px;margin-bottom:14px;padding:18px;border-radius:24px;background:linear-gradient(135deg,#fff0cf,#f8e9ff);border:1px solid #ead9ef;box-shadow:0 8px 22px rgba(91,64,110,.08)}.kitchen-hero small{font-size:10px;letter-spacing:.13em;font-weight:900;color:#9b6f42}.kitchen-hero h2{margin:4px 0 6px;font-size:20px}.kitchen-hero p{margin:0;color:#7d6c7e;font-size:12px;line-height:1.5}.kitchen-hero-plate{display:grid;place-items:center;width:92px;height:92px;border-radius:50%;background:#fff;border:7px solid #f0dfef;box-shadow:0 8px 18px rgba(92,66,103,.12);font-size:48px}.ready-count{font-size:11px;font-weight:800;color:#7a6c82;background:#f5effa;border-radius:999px;padding:7px 10px}.recipe-card{position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease}.recipe-card:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(83,63,105,.13)}.recipe-card.made::after{content:"COLLECTED";position:absolute;right:-29px;top:13px;transform:rotate(38deg);background:#8c69ad;color:white;font-size:8px;font-weight:900;letter-spacing:.08em;padding:4px 31px}.cook-btn:not(:disabled){cursor:pointer;box-shadow:0 5px 12px rgba(111,79,143,.22)}.cook-btn:not(:disabled):active{transform:translateY(1px)}.cook-modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;background:rgba(45,31,52,.48);backdrop-filter:blur(5px)}.cook-modal.hidden{display:none}.cook-modal-card{position:relative;width:min(360px,100%);padding:28px 24px 22px;text-align:center;border-radius:28px;background:linear-gradient(180deg,#fffdf8,#fff7e7);border:2px solid #f0d9a7;box-shadow:0 22px 70px rgba(38,22,44,.28);animation:cookReveal .38s cubic-bezier(.2,.9,.3,1.2)}.cook-modal-close{position:absolute;right:13px;top:11px;width:34px;height:34px;border:0;border-radius:50%;background:#f5ead7;color:#745d4c;font-size:22px}.cook-sparkles{font-size:22px;color:#d59b31;letter-spacing:.2em;animation:sparkle 1s ease-in-out infinite alternate}.cook-result-emoji{font-size:82px;line-height:1;margin:10px 0 8px;filter:drop-shadow(0 9px 8px rgba(110,76,30,.18));animation:dishBounce .65s ease}.cook-modal-card>small{font-size:10px;letter-spacing:.14em;font-weight:900;color:#a87732}.cook-modal-card h2{margin:5px 0 3px}.cook-result-fr{font-size:19px;font-weight:900;color:#614a71;margin:0 0 4px}.cook-result-info{font-size:12px;color:#877887;margin:0 0 16px}.modal-open{overflow:hidden}@keyframes cookReveal{from{opacity:0;transform:scale(.76) translateY(25px)}to{opacity:1;transform:scale(1) translateY(0)}}@keyframes dishBounce{0%{transform:scale(.35) rotate(-12deg)}65%{transform:scale(1.15) rotate(5deg)}100%{transform:scale(1) rotate(0)}}@keyframes sparkle{from{opacity:.55;transform:scale(.95)}to{opacity:1;transform:scale(1.08)}}
 @media(max-width:520px){.kitchen-hero{grid-template-columns:1fr 78px;padding:14px}.kitchen-hero h2{font-size:17px}.kitchen-hero-plate{width:72px;height:72px;border-width:5px;font-size:38px}.ready-count{font-size:10px}.cook-modal-card{padding:24px 18px 18px}.cook-result-emoji{font-size:70px}}
 
-
-/* V4 Build 7 — French food collection */
 .kitchen-subnav{display:flex;justify-content:flex-end;margin:-4px 0 10px}.kitchen-book-btn,.collection-kitchen-link{border:1px solid #dac9e8;background:#fff;color:#6c5085;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:900;box-shadow:0 5px 12px rgba(84,57,105,.07)}
 .collection-hero{display:grid;grid-template-columns:1fr 126px;gap:16px;align-items:center;padding:20px;margin-bottom:13px;border-radius:26px;background:linear-gradient(135deg,#ede4fb,#fff1d8);border:1px solid #e2d3ec;box-shadow:0 9px 24px rgba(83,59,105,.09)}.collection-hero small{font-size:10px;letter-spacing:.14em;font-weight:900;color:#805e99}.collection-hero h2{font-size:21px;margin:4px 0 6px}.collection-hero p{font-size:12px;line-height:1.5;color:#766a7d;margin:0}.collection-medal{min-height:105px;border-radius:22px;background:rgba(255,255,255,.72);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px;border:1px solid rgba(255,255,255,.9)}.collection-medal span{font-size:43px}.collection-medal b{font-size:11px;color:#6c567c;margin-top:5px}.collection-progress-card{background:#fff;border:1px solid #e9e1ef;border-radius:20px;padding:15px;margin-bottom:13px;box-shadow:0 6px 18px rgba(80,57,101,.06)}.collection-progress{margin:9px 0 10px}.collection-progress>div{background:linear-gradient(90deg,#8c69ad,#edaa6c)}.collection-summary{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#807286}.collection-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.collection-toolbar .recipe-filters{margin:0}.collection-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.collection-card{position:relative;display:grid;grid-template-columns:58px 1fr 26px;align-items:center;gap:10px;min-height:100px;padding:14px;border-radius:20px;background:#fff;border:1px solid #e9e2ef;box-shadow:0 6px 16px rgba(74,52,94,.065);overflow:hidden}.collection-card.unlocked{cursor:pointer}.collection-card.unlocked:active{transform:scale(.985)}.collection-card.locked{background:#f6f2f8;color:#aaa0b0}.collection-card.locked .collection-food-emoji{filter:grayscale(1);opacity:.24}.collection-number{position:absolute;left:8px;top:6px;font-size:9px;font-weight:900;color:#b2a6ba}.collection-food-emoji{font-size:43px;text-align:center;filter:drop-shadow(0 5px 5px rgba(80,55,40,.13))}.collection-card-copy{min-width:0}.collection-card-copy b{display:block;font-size:14px;color:#5f4775}.collection-card-copy small{display:block;margin-top:3px;font-size:10px;line-height:1.35;color:#807486}.collection-card-copy span{display:block;margin-top:7px;font-size:9px;font-weight:900;color:#a47c4d}.collection-status{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:#eee7f4;color:#75578f;font-weight:900}.unlocked .collection-status{background:#dff1e5;color:#3c7750}.collection-modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:rgba(43,29,49,.5);backdrop-filter:blur(5px)}.collection-modal.hidden{display:none}.collection-modal-card{position:relative;width:min(360px,100%);padding:27px 24px 22px;text-align:center;border-radius:28px;background:linear-gradient(180deg,#fff,#fff8ec);border:2px solid #e7d7ee;box-shadow:0 24px 70px rgba(34,20,40,.3);animation:cookReveal .35s cubic-bezier(.2,.9,.3,1.15)}.collection-detail-emoji{font-size:82px;line-height:1;filter:drop-shadow(0 9px 8px rgba(94,60,30,.15))}.collection-modal-card>small{display:block;margin-top:10px;font-size:10px;letter-spacing:.15em;font-weight:900;color:#a17445}.collection-modal-card h2{margin:5px 0 2px;color:#5c4272}.collection-detail-ko{font-weight:900;margin:0 0 8px}.collection-gender{display:inline-block;border-radius:999px;padding:6px 10px;background:#eee6f5;color:#76578e;font-size:10px;font-weight:900}.collection-detail-desc{font-size:12px;line-height:1.6;color:#756a79;margin:13px 0}.collection-detail-count{font-size:11px;font-weight:900;color:#a47542;margin-bottom:15px}
 @media(max-width:560px){.collection-hero{grid-template-columns:1fr 92px;padding:15px}.collection-hero h2{font-size:17px}.collection-medal{min-height:86px}.collection-medal span{font-size:34px}.collection-grid{grid-template-columns:1fr}.collection-toolbar{align-items:flex-start;flex-direction:column}.collection-kitchen-link{align-self:flex-end}.collection-card{min-height:86px;grid-template-columns:50px 1fr 24px;padding:11px 12px}.collection-food-emoji{font-size:37px}}
 
-
-/* V4 Build 8 — final polish, accessibility and mobile QA */
 :root{--safe-bottom:env(safe-area-inset-bottom,0px)}
 body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent}
 button,input{font:inherit}
@@ -234,8 +215,6 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
-
-/* V4.1.0 — UI & character upgrade */
 .home-hero{position:relative;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:18px;overflow:hidden;padding:22px 22px 18px;background:linear-gradient(135deg,#f0e4fb 0%,#ffe8ef 52%,#fff4d7 100%)}
 .home-hero::after{content:"";position:absolute;right:-40px;bottom:-42px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.52) 0%,rgba(255,255,255,0) 68%);pointer-events:none}
 .hero-copy{position:relative;z-index:1}.hero-kicker{display:inline-flex;align-items:center;gap:6px}.hero-kicker::before{content:"✦";font-size:10px}
@@ -249,15 +228,13 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 .petit-guide{background:linear-gradient(180deg,#fff 0%,#f4edfb 100%)}.fromage-guide{background:linear-gradient(180deg,#fff 0%,#fff3e3 100%)}.lavande-guide{background:linear-gradient(180deg,#fff 0%,#f1eefc 100%)}
 .quiz-layout{display:flex;flex-direction:column;gap:14px}.quiz-guide-panel{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:14px;padding:12px 14px;border-radius:26px;border:1px solid #eadff3;background:linear-gradient(135deg,#f4ecfb,#fff6f6)}
 .quiz-guide-panel[data-guide="petit"]{background:linear-gradient(135deg,#f3edfc,#fff7f9)}.quiz-guide-panel[data-guide="fromage"]{background:linear-gradient(135deg,#fff5e7,#fff9ef)}.quiz-guide-panel[data-guide="lavande"]{background:linear-gradient(135deg,#f0edfc,#f9f7ff)}
-.quiz-cat{width:92px;height:92px;object-fit:contain;padding:8px;border-radius:24px;background:rgba(255,255,255,.85);box-shadow:0 10px 24px rgba(83,57,108,.08)}.quiz-guide-copy{min-width:0}.cat-name{margin:0 0 6px;text-align:left;font-size:18px;font-weight:900;color:#654c7d}.quiz-speech{position:relative;min-height:58px;display:flex;align-items:center;background:#fff;border-radius:20px;padding:12px 16px;font-size:15px;font-weight:800;line-height:1.45;color:#5c5171;box-shadow:0 8px 20px rgba(83,57,108,.06)}.quiz-speech::before{content:"";position:absolute;left:-10px;top:22px;border-width:10px 12px 10px 0;border-style:solid;border-color:transparent #fff transparent transparent}
+.quiz-cat{width:92px;height:92px;object-fit:contain;padding:8px;border-radius:24px;background:rgba(255,255,255,.85);box-shadow:0 10px 24px rgba(83,57,108,.08)}.quiz-guide-copy{min-width:0}.cat-name{margin:0 0 6px;text-align:left;font-size:18px;font-weight:900;color:#654c7d}.quiz-speech{position:relative;min-height:58px;display:flex;align-items:center;background:#fff;border-radius:20px;padding:12px 16px;font-size:15px;font-weight:800;line-height:1.45;color:#5c5171;box-shadow:0 8px 20px rgba(83,57,108,.06)}
 .quiz-card{padding:18px;border-radius:28px}.quiz-label{display:inline-flex;align-items:center;justify-content:center;margin:0 auto 10px;padding:8px 14px;border-radius:999px;background:#f6effc;color:#6b5183;font-size:12px;font-weight:900}.quiz-card .study-emoji{font-size:32px;line-height:1;margin:0 auto 10px}.quiz-word{margin:0 0 12px}
 .quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}.quiz-option{display:flex;align-items:center;gap:12px;min-height:74px;padding:12px 14px;border-radius:18px;text-align:left;background:#fff;border:2px solid #e8ddf3;box-shadow:0 8px 18px rgba(83,57,108,.06)}.option-letter{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;border-radius:12px;background:#f1e9fa;color:#6a517f;font-size:16px;font-weight:900}.option-text{flex:1;line-height:1.42;font-size:18px;font-weight:800;color:#45384c}.quiz-option.correct{background:#ecfbef;border-color:#9fd7ad}.quiz-option.wrong{background:#fff2f4;border-color:#ebb0ba}.quiz-option.correct-answer{border-color:#90cba0;background:#f3fff6}
 .feedback{min-height:28px;margin:8px 0 2px;padding:0 4px;font-size:16px}.feedback.success{color:#3e7d57}.feedback.error{color:#ba5f6f}.quiz-card .example{margin-top:10px}
 @media(max-width:680px){.home-hero{grid-template-columns:1fr;padding:18px}.character-trio{justify-self:center;width:min(86%,250px);order:-1}.hero-start{width:100%}.guide-strip{grid-template-columns:1fr;gap:10px}.guide-card{min-height:126px;flex-direction:row;justify-content:flex-start;padding:12px 14px;text-align:left}.guide-card img{width:70px;height:70px}.guide-card span{align-items:flex-start;text-align:left}.guide-card i{margin-left:auto}.quiz-guide-panel{grid-template-columns:84px 1fr;padding:10px 12px}.quiz-cat{width:80px;height:80px}.cat-name{font-size:16px}.quiz-speech{padding:11px 14px;font-size:14px}.quiz-options{grid-template-columns:1fr}.quiz-option{min-height:60px}.option-text{font-size:17px}}
 @media(max-width:420px){.hero-guide-badges span{font-size:10px;padding:6px 9px}.quiz-card{padding:14px}.quiz-label{font-size:11px;padding:7px 12px}.quiz-card .study-emoji{font-size:28px}.option-letter{width:30px;height:30px;font-size:14px}.option-text{font-size:16px}}
 
-
-/* V4.1.1 — home/quiz/cooking UI refinement */
 .home-hero{grid-template-columns:minmax(0,1.05fr) minmax(230px,.95fr);padding:20px 20px 16px;min-height:430px}
 .character-trio{width:min(100%,300px);max-height:280px;object-fit:contain;object-position:center;align-self:end;justify-self:center;border-radius:0;background:transparent;box-shadow:none}
 .hero-copy .speech{padding:11px 14px;line-height:1.42;max-width:360px}
@@ -268,7 +245,7 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 .quiz-guide-panel{grid-template-columns:82px 1fr;min-height:auto;padding:9px 12px;border-radius:22px}
 .quiz-cat{width:76px;height:76px;padding:6px;border-radius:20px}
 .cat-name{font-size:16px;margin-bottom:4px}.quiz-speech{min-height:48px;padding:9px 13px;font-size:14px;border-radius:17px}
-.quiz-speech::before{top:16px}
+
 .quiz-card{margin-top:0;padding:16px 17px 18px}.quiz-label{margin-bottom:8px}.quiz-card .study-emoji{margin-bottom:7px}
 
 #quizScreen[data-skill="meaning"] .quiz-label,
@@ -280,7 +257,7 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 #quizScreen[data-skill="example"] .quiz-card{box-shadow:0 18px 38px rgba(99,76,145,.11)}
 
 .recipe-card{padding:13px 14px;border-radius:18px}
-.recipe-head{margin-bottom:2px}.recipe-emoji{font-size:2.05rem}.recipe-title b{font-size:.96rem}.recipe-title small{font-size:.76rem}
+.recipe-head{margin-bottom:2px}.recipe-title b{font-size:.96rem}
 .cost-list{gap:5px;margin:9px 0}.cost{padding:5px 8px;font-size:.72rem}
 .cook-btn{min-height:44px;padding:10px 12px;border-radius:14px;font-size:.86rem}
 .recipe-card:has(.cook-btn:not(:disabled)){border-color:#c8aee1;box-shadow:0 10px 24px rgba(112,76,145,.12)}
@@ -304,20 +281,14 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
   .quiz-card{padding:10px 12px 12px}.quiz-label{padding:6px 10px}.quiz-card .study-emoji{font-size:24px}.quiz-word{font-size:24px}
 }
 
-
-/* V4.1.2 — quiz variety & compact cooking cards */
 .recipe-card{padding:13px;border-radius:18px}.recipe-head{align-items:center}.recipe-emoji{font-size:2.05rem}.recipe-title{margin-top:4px}.recipe-title b{font-size:.98rem}.recipe-title small{font-size:.76rem}.cost-list{margin:9px 0;gap:5px}.cost{font-size:.72rem;padding:5px 7px}.cook-btn{min-height:44px;padding:9px 10px}.recipe-card.ready{border-color:#a9d7b5;background:linear-gradient(180deg,#fff,#f3fff6);box-shadow:0 10px 24px rgba(58,126,78,.12)}.recipe-card.ready .cook-btn{background:linear-gradient(135deg,#68b67f,#4d9966);color:#fff}.recipe-card.unavailable{opacity:.92}.recipe-card.unavailable .cook-btn{background:#d7cfdf;color:#fff}.recipe-card.ready::before{content:"READY";position:absolute;left:12px;top:11px;padding:4px 7px;border-radius:999px;background:#dff4e5;color:#3d7950;font-size:8px;font-weight:900;letter-spacing:.08em}.recipe-card.ready .recipe-head{padding-top:18px}
 @media(max-width:520px){.recipe-grid{gap:9px}.recipe-card{padding:11px}.recipe-emoji{font-size:1.9rem}.cost-list{gap:4px}.cost{font-size:.68rem}.cook-btn{min-height:42px;font-size:14px}}
 
-
-/* V4.1.3 — character reactions and celebration polish */
 .quiz-cat-wrap{position:relative;display:grid;place-items:center}.quiz-reaction{position:absolute;right:-4px;top:-8px;z-index:4;min-width:42px;height:42px;display:grid;place-items:center;border-radius:50%;font-size:22px;background:#fff;border:2px solid #eadcf5;box-shadow:0 8px 20px rgba(83,57,108,.15);animation:reactionPop .42s cubic-bezier(.2,.9,.3,1.3)}.quiz-reaction.is-correct{background:#fff8cc;border-color:#f0d675}.quiz-reaction.is-wrong{background:#eef5ff;border-color:#bfd2ec}.quiz-reaction.fade{animation:reactionFade .35s ease forwards}.quiz-cat.react-correct{animation:catCelebrate .72s cubic-bezier(.2,.9,.3,1.2)}.quiz-cat.react-wrong{animation:catThink .62s ease}.quiz-guide-panel:has(.react-correct){box-shadow:0 0 0 3px rgba(105,188,126,.18),0 12px 28px rgba(83,57,108,.08)}.quiz-guide-panel:has(.react-wrong){box-shadow:0 0 0 3px rgba(120,151,207,.15),0 12px 28px rgba(83,57,108,.08)}
 .feedback.success,.feedback.error{border-radius:14px;padding:9px 12px}.feedback.success{background:#edf9f0}.feedback.error{background:#fff0f3}.cook-character-party{height:58px;display:flex;align-items:flex-end;justify-content:center;gap:2px;margin:-8px 0 2px}.cook-character-party img{width:62px;height:62px;object-fit:contain;filter:drop-shadow(0 6px 7px rgba(83,57,108,.12));animation:partyBounce 1.1s ease-in-out infinite}.cook-character-party img:nth-child(2){animation-delay:.12s}.cook-character-party img:nth-child(3){animation-delay:.24s}.cook-result-emoji{margin-top:4px}
 @keyframes reactionPop{0%{opacity:0;transform:scale(.2) rotate(-18deg)}70%{transform:scale(1.18) rotate(7deg)}100%{opacity:1;transform:scale(1) rotate(0)}}@keyframes reactionFade{to{opacity:0;transform:translateY(-8px) scale(.8)}}@keyframes catCelebrate{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-12px) rotate(-5deg)}55%{transform:translateY(0) rotate(5deg)}75%{transform:translateY(-5px) rotate(-2deg)}100%{transform:translateY(0) rotate(0)}}@keyframes catThink{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-4px) rotate(-2deg)}50%{transform:translateX(4px) rotate(2deg)}75%{transform:translateX(-2px) rotate(-1deg)}}@keyframes partyBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @media(max-width:680px){.quiz-reaction{right:-2px;top:-5px;min-width:36px;height:36px;font-size:19px}.cook-character-party img{width:54px;height:54px}.cook-character-party{height:52px}}
 
-
-/* V4.1.4 — Study, vocabulary and progress UI upgrade */
 .study-guide-panel{display:grid;grid-template-columns:82px 1fr;align-items:center;gap:12px;margin:0 0 12px;padding:11px 14px;border-radius:24px;border:1px solid #e9dff2;background:linear-gradient(135deg,#f3ecfb,#fff7fa);box-shadow:0 8px 22px rgba(83,57,108,.07)}
 .study-guide-panel[data-guide="fromage"]{background:linear-gradient(135deg,#fff2dd,#fffaf1);border-color:#f2dfbd}.study-guide-panel[data-guide="lavande"]{background:linear-gradient(135deg,#eeeafd,#faf8ff);border-color:#ded6f3}
 .study-guide-panel img{width:76px;height:76px;object-fit:contain;padding:6px;border-radius:20px;background:rgba(255,255,255,.86);filter:drop-shadow(0 7px 8px rgba(83,57,108,.12))}.study-guide-panel b{display:block;margin-bottom:5px;color:#654c7c;font-size:16px}.study-guide-panel p{margin:0;padding:10px 13px;border-radius:16px;background:#fff;color:#665a70;font-size:13px;font-weight:800;line-height:1.45;box-shadow:0 5px 14px rgba(83,57,108,.05)}
@@ -327,45 +298,30 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 .progress-hero{display:grid;grid-template-columns:1fr 92px;align-items:center;gap:14px;margin-bottom:13px;padding:18px 20px;border-radius:26px;background:linear-gradient(135deg,#eee4fb,#fff0d9);border:1px solid #e3d5ee;box-shadow:0 10px 25px rgba(83,57,108,.08)}.progress-hero small{font-size:10px;letter-spacing:.14em;font-weight:900;color:#805e99}.progress-hero h2{margin:5px 0 5px;font-size:21px;color:#544060}.progress-hero p{margin:0;font-size:12px;line-height:1.45;color:#776b7d}.progress-hero-medal{display:grid;place-items:center;width:82px;height:82px;border-radius:26px;background:rgba(255,255,255,.78);font-size:43px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 8px 20px rgba(83,57,108,.08)}.progress-main-card .progress>div{background:linear-gradient(90deg,#8a68aa,#e5a56a)}#progressScreen .stats-grid .stat{position:relative;overflow:hidden;padding:14px;background:linear-gradient(180deg,#fff,#faf6fd)}#progressScreen .stats-grid .stat::after{content:"";position:absolute;right:-17px;bottom:-22px;width:58px;height:58px;border-radius:50%;background:rgba(145,108,176,.08)}
 @media(max-width:520px){.study-guide-panel{grid-template-columns:68px 1fr;padding:9px 10px}.study-guide-panel img{width:64px;height:64px}.study-guide-panel b{font-size:14px}.study-guide-panel p{padding:8px 10px;font-size:12px}.word-item{grid-template-columns:48px 1fr auto;gap:9px}.word-item i{display:none}.word-icon{width:45px;height:45px;font-size:25px}.word-item .badge{align-self:start}.progress-hero{grid-template-columns:1fr 72px;padding:15px}.progress-hero h2{font-size:18px}.progress-hero-medal{width:66px;height:66px;border-radius:21px;font-size:36px}}
 
-
-/* V4.1.5 — clean character art and quiz image cleanup */
 .quiz-cat{object-fit:contain;object-position:left center;overflow:hidden}
 #quizEmoji{display:none!important}
 .study-guide-panel img,.quiz-guide-panel img{object-fit:contain;object-position:left center}
 
-/* V4.1.6 — remove quiz hint image completely */
 #quizEmoji,.quiz-card>.study-emoji{display:none!important;width:0!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
 
-
-/* V4.2.1 — listening and pronunciation upgrade */
 .quiz-audio-panel{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;margin:2px auto 12px;padding:11px 13px;border:1px solid #cfe4f2;border-radius:18px;background:linear-gradient(135deg,#eef9ff,#f8fcff);box-shadow:0 7px 18px rgba(60,105,132,.08)}
 .quiz-audio-copy{display:flex;flex-direction:column;gap:2px;text-align:left}.quiz-audio-copy b{font-size:13px;color:#3f657c}.quiz-audio-copy small{font-size:10px;color:#738996}.quiz-audio-actions{display:flex;gap:7px}.quiz-audio-btn{min-height:38px;border:1px solid #c8dfed;border-radius:12px;padding:7px 10px;background:#fff;color:#41677e;font-size:11px;font-weight:900;box-shadow:0 4px 10px rgba(59,103,130,.07)}.quiz-audio-btn.slow{background:#fff8e9;border-color:#ead9ad;color:#80653d}.quiz-audio-btn.is-playing{transform:scale(.97);box-shadow:0 0 0 3px rgba(100,160,196,.14)}.audio-status{grid-column:1/-1;font-size:10px;color:#718894;text-align:right}.quiz-guide-panel[data-guide="fromage"] .quiz-speech{border:1px solid #f3d59d}.quiz-guide-panel[data-guide="fromage"] .cat-name{color:#a56b1c}
 @media(max-width:520px){.quiz-audio-panel{grid-template-columns:1fr;padding:10px}.quiz-audio-actions{width:100%}.quiz-audio-btn{flex:1}.audio-status{text-align:center}.quiz-audio-copy{text-align:center}}
 
-
-/* V4.2.2 — illustrated recipes and collection polish */
 .recipe-card{padding:12px;overflow:hidden}.recipe-visual{position:relative;height:132px;margin:-2px -2px 10px;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#fffaf4,#f4ecfa)}.recipe-visual img{width:100%;height:100%;object-fit:cover;display:block}.recipe-visual .difficulty{position:absolute;right:9px;top:9px;background:rgba(255,255,255,.92);box-shadow:0 4px 10px rgba(74,52,94,.08)}.ready-ribbon{position:absolute;left:9px;top:9px;padding:5px 8px;border-radius:999px;background:#4da66b;color:#fff;font-size:9px;font-weight:900;letter-spacing:.08em;box-shadow:0 5px 12px rgba(43,120,70,.2)}.recipe-card.ready{border-color:#abd7b7;box-shadow:0 10px 24px rgba(72,146,92,.13)}.recipe-title{padding:0 3px}.recipe-title b{font-size:15px}.recipe-title small{font-size:11px}.cost-list{margin:10px 0 8px}.cook-btn{min-height:44px}.collection-card{grid-template-columns:82px 1fr 26px;min-height:112px}.collection-food-emoji{width:76px;height:76px}.collection-food-emoji img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block}.collection-card.locked .collection-food-emoji img{filter:grayscale(1) blur(1px);opacity:.28}.cook-result-emoji,.collection-detail-emoji{width:190px;height:148px;margin:8px auto}.cook-result-emoji img,.collection-detail-emoji img{width:100%;height:100%;object-fit:cover;border-radius:24px;display:block;box-shadow:0 12px 28px rgba(73,45,88,.15)}.cook-result-emoji{font-size:0}.collection-detail-emoji{font-size:0}.kitchen-hero-plate{overflow:hidden}.kitchen-hero-plate img{width:100%;height:100%;object-fit:cover;border-radius:50%}@media(max-width:560px){.recipe-visual{height:148px}.collection-card{grid-template-columns:74px 1fr 24px}.collection-food-emoji{width:68px;height:68px}.cook-result-emoji,.collection-detail-emoji{width:170px;height:132px}}
 
-
-/* V4.3.0 release polish */
 .release-info{display:flex;flex-direction:column;align-items:center;gap:3px;margin:18px auto 4px;padding:12px 16px;border-radius:18px;background:linear-gradient(135deg,#f3ecfa,#fff5e4);border:1px solid #e5d8ee;color:#644d78;text-align:center}.release-info b{font-size:14px}.release-info small{font-size:10px;color:#88798f}.loading-error{margin:18px 0;padding:16px;border-radius:18px;background:#fff2f4;border:1px solid #efc0c8;color:#9f5260;font-weight:800;line-height:1.5}
 
-
-/* V4.3.1 character image cleanup */
 .quiz-guide-panel,.study-guide-panel,.guide-card{overflow:hidden;}
 .quiz-cat,.study-guide-panel img,.guide-card img{object-fit:contain;object-position:center center;overflow:hidden;display:block;background:#fff;}
 .quiz-cat{padding:6px;border-radius:20px;}
 .quiz-guide-panel img, .study-guide-panel img{background:#fff;}
 
-
-/* V4.3.2 — simplified home */
 .home-hero-simple{min-height:0;grid-template-columns:1.05fr .95fr;padding:20px 20px 16px;margin-top:8px}.home-hero-simple .hero-copy h1{font-size:clamp(28px,5vw,38px);margin:7px 0 9px}.home-hero-simple .speech{padding:11px 14px;margin-bottom:10px}.home-hero-simple .character-trio{width:min(100%,235px);max-height:210px;object-fit:contain}.home-hero-simple .hero-start{min-height:48px;margin-top:0}.home-hero-simple .hero-progress{margin-top:2px}.home-daily-simple{margin-top:14px;padding:16px 17px}.home-daily-simple .daily-heading{margin-bottom:4px}.daily-compact-row{display:grid;grid-template-columns:98px 1fr;align-items:center;gap:14px}.compact-stage img{width:96px;height:76px}.home-daily-simple .daily-copy b{font-size:14px;line-height:1.45}.home-daily-simple .daily-copy small{display:block;margin-top:6px;font-size:11px;color:var(--muted);font-weight:800}.compact-rewards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:10px}.compact-rewards .mini-ingredient{min-height:60px;padding:7px 4px;border-radius:14px}.compact-rewards .mini-ingredient span{font-size:20px}.compact-rewards .mini-ingredient b{font-size:12px}.compact-rewards .mini-ingredient small{font-size:9px}.home-quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.home-quick-actions button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:58px;border:1px solid #e6dcf0;border-radius:18px;background:#fff;color:#564263;font-weight:900;box-shadow:0 7px 18px rgba(83,57,108,.07)}.home-quick-actions button span{font-size:22px}.home-quick-actions button b{font-size:13px}
 #homeScreen{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
 @media(max-width:680px){.home-hero-simple{grid-template-columns:1fr 145px;padding:17px}.home-hero-simple .character-trio{order:0;width:145px;max-height:165px;align-self:end}.home-hero-simple .hero-copy h1{font-size:29px}.home-hero-simple .speech{font-size:12px}.home-hero-simple .hero-start{width:100%;min-width:0}.home-hero-simple .hero-progress{grid-column:1/-1}.daily-compact-row{grid-template-columns:82px 1fr}.compact-stage img{width:82px;height:66px}}
 @media(max-width:430px){.home-hero-simple{grid-template-columns:1fr 118px;gap:8px}.home-hero-simple .character-trio{width:118px;max-height:145px}.home-hero-simple .hero-copy h1{font-size:25px}.home-hero-simple .speech{padding:9px 10px}.home-quick-actions{gap:7px}.home-quick-actions button{flex-direction:column;gap:3px;min-height:66px}.home-quick-actions button span{font-size:20px}.home-quick-actions button b{font-size:11px}}
 
-
-/* V4.3.3 — animated characters */
 .character-motion{transform-origin:50% 88%;will-change:transform;animation:characterIdle 3.4s ease-in-out infinite;}
 .character-home{animation-duration:4.2s;transform-origin:50% 92%;}
 .character-study{animation-duration:3.8s;}
@@ -385,39 +341,19 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 @keyframes characterParty{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(2deg)}}
 @media(prefers-reduced-motion:reduce){.character-motion,.cook-character-party .character-party{animation:none!important;transform:none!important}}
 
-
-/* V4.4.0 SVG character integration */
 .hero-cat,.quiz-cat,.guide-card img,.study-guide-panel img,.cook-party img{object-fit:contain!important;background:transparent!important;}
 .hero-cat{filter:none!important}.quiz-cat{padding:0!important;border:none!important;box-shadow:none!important}.guide-card img{filter:none!important}.character-trio{max-height:300px}.quiz-guide-panel{overflow:visible}.quiz-cat{overflow:visible}
 
-
-/* V4.4.2 — expressive SVG character states */
 .quiz-cat[data-state="happy"]{filter:drop-shadow(0 12px 15px rgba(87,153,104,.22));}
 .quiz-cat[data-state="think"]{filter:drop-shadow(0 12px 15px rgba(118,86,154,.22));}
 
-
-/* V4.4.3 upgraded vector artwork */
 .quiz-cat,.study-guide-panel img,.guide-card img,.character-party,.hero-cat{image-rendering:auto;}
 
-
-/* V4.4.4 premium SVG expressions */
 .quiz-cat,.study-guide-panel img,.character-party{transition:filter .22s ease,transform .22s ease;filter:drop-shadow(0 8px 10px rgba(78,58,98,.14));}
 .quiz-cat.reaction-happy{filter:drop-shadow(0 10px 14px rgba(255,190,70,.28));}
 .quiz-cat.reaction-think{filter:drop-shadow(0 10px 14px rgba(126,93,166,.24));}
 .quiz-guide-panel{isolation:isolate}.quiz-guide-panel::after{content:"";position:absolute;inset:auto 18px 12px 18px;height:26px;border-radius:50%;background:radial-gradient(ellipse,rgba(116,84,148,.12),transparent 70%);z-index:-1;pointer-events:none}
 
-
-/* V4.4.5 — remove quiz speech tail completely */
-.quiz-speech::before,
-.quiz-speech::after{
-  content:none!important;
-  display:none!important;
-  width:0!important;
-  height:0!important;
-  border:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
 .quiz-guide-panel{
   grid-template-columns:92px minmax(0,1fr)!important;
   gap:8px!important;
@@ -432,8 +368,6 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
   .quiz-guide-panel{grid-template-columns:64px minmax(0,1fr)!important;}
 }
 
-
-/* V4.4.6 — quiz screen final polish */
 #quizScreen{padding-top:12px;background:linear-gradient(180deg,#f2ebfb 0%,#fffaf2 100%)}
 .quiz-topbar{position:sticky;top:0;z-index:20;margin:0 -2px 10px;padding:4px 0 8px;background:linear-gradient(180deg,rgba(242,235,251,.98),rgba(242,235,251,.82),transparent)}
 .quiz-layout{gap:10px;max-width:720px;margin:0 auto}
@@ -443,7 +377,7 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 .quiz-guide-copy{align-self:center;min-width:0}
 .cat-name{margin:0 0 5px;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .quiz-speech{min-height:48px;padding:10px 13px;border-radius:17px;font-size:14px;line-height:1.35;overflow:hidden}
-.quiz-speech::before,.quiz-speech::after{content:none!important;display:none!important}
+
 .quiz-card{margin-top:0;padding:16px 18px 18px;border-radius:26px}
 .quiz-label{margin-bottom:8px;padding:7px 13px;font-size:11px;line-height:1.3;text-align:center}
 .quiz-word{margin:2px 0 12px;font-size:clamp(28px,7vw,38px);line-height:1.15}
@@ -476,4 +410,11 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
   .quiz-card{padding-top:11px;padding-bottom:12px}
   .quiz-word{font-size:28px;margin-bottom:9px}
   .quiz-option{min-height:50px;padding:8px 10px}
+}
+
+/* Canonical quiz speech bubble: no pointer/tail */
+.quiz-speech::before,
+.quiz-speech::after {
+  content: none !important;
+  display: none !important;
 }
