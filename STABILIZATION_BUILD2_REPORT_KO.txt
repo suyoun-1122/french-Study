@@ -1,0 +1,7 @@
+Yeonjae French V4.5.0 Build 2 — 버전·캐시·PWA 안정화
+
+1. index.html/app.js/data/service-worker 버전 4.5.0 통일
+2. 기존 캐시 자동 삭제와 네트워크 우선 갱신 적용
+3. PWA 아이콘 192px, 512px, maskable 512px 추가
+4. manifest 이름·설명·범위·테마 설정 보완
+5. 기존 localStorage 저장 키 yeonjaeFrenchV3 유지
