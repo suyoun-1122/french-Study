@@ -753,7 +753,10 @@
       "저녁",
       "주",
       "시간, 시각"
-    ]
+    ],
+    "pluralPractice": false,
+    "articlePractice": false,
+    "learningForm": "midi"
   },
   {
     "id": 35,
@@ -1112,7 +1115,10 @@
       "치즈",
       "수프",
       "케이크"
-    ]
+    ],
+    "pluralPractice": false,
+    "articleMode": "definite",
+    "learningForm": "le pain"
   },
   {
     "id": 50,
@@ -1134,7 +1140,10 @@
       "치즈",
       "수프",
       "케이크"
-    ]
+    ],
+    "pluralPractice": false,
+    "articleMode": "definite",
+    "learningForm": "le lait"
   },
   {
     "id": 51,
@@ -1178,7 +1187,10 @@
       "사과",
       "수프",
       "케이크"
-    ]
+    ],
+    "pluralPractice": false,
+    "articleMode": "definite",
+    "learningForm": "le fromage"
   },
   {
     "id": 53,
@@ -1266,7 +1278,10 @@
       "사과",
       "치즈",
       "수프"
-    ]
+    ],
+    "pluralPractice": false,
+    "articleMode": "definite",
+    "learningForm": "l’eau"
   },
   {
     "id": 57,
@@ -1991,7 +2006,10 @@
       "구름 앞에서 해가 빛나요.",
       "구름 뒤에서 달이 빛나요.",
       "구름 뒤에서 해가 사라져요."
-    ]
+    ],
+    "pluralPractice": false,
+    "articleMode": "definite",
+    "learningForm": "le soleil"
   },
   {
     "id": 89,
@@ -2016,7 +2034,10 @@
       "오늘 저녁부터 비가 내려요.",
       "오늘 아침부터 눈이 내려요.",
       "오늘 아침에 비가 그쳤어요."
-    ]
+    ],
+    "pluralPractice": false,
+    "articleMode": "definite",
+    "learningForm": "la pluie"
   },
   {
     "id": 90,
@@ -2056,7 +2077,10 @@
       "해, 햇빛",
       "비",
       "구름"
-    ]
+    ],
+    "pluralPractice": false,
+    "articleMode": "definite",
+    "learningForm": "le vent"
   },
   {
     "id": 92,
@@ -2078,7 +2102,10 @@
       "비",
       "구름",
       "바람"
-    ]
+    ],
+    "pluralPractice": false,
+    "articlePractice": false,
+    "learningForm": "la joie"
   },
   {
     "id": 93,
@@ -2100,7 +2127,10 @@
       "비",
       "구름",
       "바람"
-    ]
+    ],
+    "pluralPractice": false,
+    "articlePractice": false,
+    "learningForm": "avoir peur"
   },
   {
     "id": 94,

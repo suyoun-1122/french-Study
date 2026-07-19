@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.5.0",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.5.1",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -38,8 +38,8 @@ function validateData(words,lessonsPayload,recipesPayload){
   });
 }
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.5.0").then(r=>r.json()),fetch("./data/lessons.json?v=4.5.0").then(r=>r.json()),fetch("./data/recipes.json?v=4.5.0").then(r=>r.json())]);
-  validateData(w,l,r);WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;progress.version="4.5.0";saveProgress();renderAll();
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.5.1").then(r=>r.json()),fetch("./data/lessons.json?v=4.5.1").then(r=>r.json()),fetch("./data/recipes.json?v=4.5.1").then(r=>r.json())]);
+  validateData(w,l,r);WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;progress.version="4.5.1";saveProgress();renderAll();
 }
 function showScreen(id,navButton){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");
@@ -49,8 +49,19 @@ function showScreen(id,navButton){
 window.showScreen=showScreen;
 const shuffled=a=>{const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x};
 const lessonWords=(id=currentLesson)=>{const l=LESSONS.find(x=>x.id===id);return l?l.wordIds.map(id=>WORDS.find(w=>w.id===id)).filter(Boolean):[]};
-const wordLabel=w=>`${w.article?w.article+" ":""}${w.word}`;
+const startsWithVowelSound=word=>/^[aeiouyàâäéèêëîïôöùûüœ]/i.test(String(word||"").trim())||/^h(eure|istoire)/i.test(String(word||"").trim());
+const definiteToken=w=>startsWithVowelSound(w.word)?"l’":w.gender==="masculine"?"le":"la";
+const withArticle=(article,word)=>article==="l’"?`${article}${word}`:`${article} ${word}`;
+const definiteLabel=w=>withArticle(definiteToken(w),w.word);
+const wordLabel=w=>w.learningForm||`${w.article?w.article+" ":""}${w.word}`;
 const pluralLabel=w=>!w.plural?"—":w.type==="noun"?`des ${w.plural}`:w.plural;
+const pluralPracticeAllowed=w=>w.type==="noun"&&w.pluralPractice!==false&&Boolean(w.plural);
+const contextualCloze=w=>{
+  const source=String(w.example||"");
+  const escaped=String(w.word||"").replace(/[.*+?^${}()|[\]\]/g,"\$&");
+  const pattern=new RegExp(`\b${escaped}\b`,`i`);
+  return pattern.test(source)?source.replace(pattern,"_____"):`${source}  _____`;
+};
 const genderLabel=w=>w.type==="noun"?(w.gender==="masculine"?"남성명사 (nom masculin)":"여성명사 (nom féminin)"):w.type==="verb"?"동사 (verbe)":"형용사 (adjectif)";
 const adjectiveForms=w=>{
   const plural=String(w.plural||"").split("/").map(x=>x.trim()).filter(Boolean);
@@ -78,7 +89,7 @@ const semanticPool=q=>{
     .filter((w,i,a)=>a.findIndex(x=>x.id===w.id)===i);
 };
 
-const DIFFICULTY_LABELS={1:"Easy",2:"Medium",3:"Hard"};
+const DIFFICULTY_LABELS={1:"CE1 · 기초",2:"CE1 · 연습",3:"CE2 · 적용"};
 function masteryKey(wordId,skill){return `${wordId}:${skill}`}
 function getMastery(wordId,skill){
   const key=masteryKey(wordId,skill);
@@ -117,6 +128,7 @@ function scheduleRetry(q,skill){
 
 function normalizedSkill(q,skill){
   if(skill==="article"&&q.type!=="noun") return "form";
+  if(skill==="article"&&q.articlePractice===false) return "example";
   return skill;
 }
 function curatedOptions(q,field,fallback){
@@ -156,33 +168,46 @@ function makeQuestion(q,requestedSkill){
     return {skill,label:"문장을 듣고 정확한 뜻을 고르세요",display:"문장 전체를 듣고 핵심 정보를 찾아보세요",audioText:q.example,audioKind:"sentence",options:uniqueOptions(distractors,correct),answer:correct,difficulty:level};
   }
   if(skill==="article"){
-    const wrongArticle=q.article==="un"?"une":"un";
-    const correctIndefinite=wordLabel(q);
-    const correctDefinite=`${q.gender==="masculine"?"le":"la"} ${q.word}`;
+    const wrongIndefinite=q.article==="un"?"une":"un";
+    const correctIndefinite=`${q.article} ${q.word}`;
+    const correctDefinite=definiteLabel(q);
+    const wrongDefinite=withArticle(q.gender==="masculine"?"la":"le",q.word);
     const plural=`des ${q.plural||q.word}`;
-    const variant=(q.id+quiz.index+level)%3;
-    if(level===1||variant===0){
-      return {skill,label:`알맞은 부정관사를 고르세요 · ${genderLabel(q)}`,display:q.word,options:uniqueOptions([wrongArticle,"des",q.gender==="masculine"?"le":"la"],q.article),answer:q.article,difficulty:level};
+    const useDefinite=q.articleMode==="definite"||level>=3;
+    if(level===1&&!useDefinite){
+      return {skill,label:`명사의 성에 맞는 부정관사를 고르세요 · ${genderLabel(q)}`,display:q.word,options:uniqueOptions([wrongIndefinite,"le","la"],q.article),answer:q.article,difficulty:level};
     }
-    if(level===2||variant===1){
-      return {skill,label:`알맞은 관사와 명사를 고르세요 · ${genderLabel(q)}`,display:q.word,options:uniqueOptions([`${wrongArticle} ${q.word}`,plural,correctDefinite],correctIndefinite),answer:correctIndefinite,difficulty:level};
+    if(level===2&&!useDefinite){
+      return {skill,label:"결정사와 명사의 성을 맞추세요",display:`${q.meaning} · ${q.word}`,options:uniqueOptions([`${wrongIndefinite} ${q.word}`,correctDefinite,plural],correctIndefinite),answer:correctIndefinite,difficulty:level};
     }
-    const wrongDefinite=`${q.gender==="masculine"?"la":"le"} ${q.word}`;
-    return {skill,label:"문맥에 맞는 관사 형태를 고르세요",display:`Je vois _____.
-(${q.meaning})`,options:uniqueOptions([wrongDefinite,plural,correctIndefinite],correctDefinite),answer:correctDefinite,difficulty:level};
+    return {skill,label:"알맞은 정관사와 명사를 고르세요",display:`${q.meaning} · ${q.word}`,options:uniqueOptions([wrongDefinite,correctIndefinite,plural],correctDefinite),answer:correctDefinite,difficulty:level};
   }
   if(skill==="form"){
     if(q.type==="noun"){
-      const correct=pluralLabel(q);
-      const wrongArticle=q.article==="un"?"une":"un";
-      return {skill,label:"단수 명사를 부정관사 복수형으로 바꾸세요",display:`${q.article} ${q.word} → ?`,options:uniqueOptions([`les ${q.plural}`,`${wrongArticle} ${q.word}`,q.plural],correct),answer:correct,difficulty:level};
+      if(!pluralPracticeAllowed(q)){
+        const correct=q.word;
+        const contextual=nearby.filter(w=>w.type==="noun"&&w.word!==q.word).slice(0,8).map(w=>w.word);
+        return {skill,label:"문맥에 알맞은 낱말로 문장을 완성하세요",display:contextualCloze(q),options:uniqueOptions([q.plural,wordLabel(q),...contextual],correct),answer:correct,difficulty:level};
+      }
+      if(level===1){
+        const correct=`des ${q.plural}`;
+        const wrongGender=`${q.article==="un"?"une":"un"} ${q.word}`;
+        return {skill,label:"복수 명사구를 고르세요",display:`${q.word} (${q.meaning})`,options:uniqueOptions([`${q.article} ${q.word}`,definiteLabel(q),wrongGender],correct),answer:correct,difficulty:level};
+      }
+      if(level===2){
+        const correct=q.plural;
+        return {skill,label:"결정사와 명사의 수를 맞추세요",display:`plusieurs _____  (${q.meaning})`,options:uniqueOptions([q.word,`des ${q.plural}`,`les ${q.plural}`],correct),answer:correct,difficulty:level};
+      }
+      const correct=q.plural;
+      return {skill,label:"문장에 맞는 명사의 수를 고르세요",display:`Je vois trois _____.
+(${q.meaning})`,options:uniqueOptions([q.word,`des ${q.plural}`,`les ${q.plural}`],correct),answer:correct,difficulty:level};
     }
     if(q.type==="adjective"){
       const f=adjectiveForms(q),variants=[
-        {label:"여성 단수 (féminin singulier)",sentence:"La fille est _____.",correct:f.fs},
-        {label:"여성 복수 (féminin pluriel)",sentence:"Les filles sont _____.",correct:f.fp},
-        {label:"남성 복수 (masculin pluriel)",sentence:"Les garçons sont _____.",correct:f.mp},
-        {label:"남성 단수 (masculin singulier)",sentence:"Le garçon est _____.",correct:f.ms}
+        {label:"여성 단수형",display:`un adjectif au féminin singulier : ${q.word}`,correct:f.fs},
+        {label:"여성 복수형",display:`un adjectif au féminin pluriel : ${q.word}`,correct:f.fp},
+        {label:"남성 복수형",display:`un adjectif au masculin pluriel : ${q.word}`,correct:f.mp},
+        {label:"남성 단수형",display:`un adjectif au masculin singulier : ${q.word}`,correct:f.ms}
       ];
       const v=variants[(q.id+quiz.index)%variants.length];
       const options=[f.ms,f.fs,f.mp,f.fp];
@@ -190,13 +215,20 @@ function makeQuestion(q,requestedSkill){
         const similar=nearby.filter(w=>w.type==="adjective").flatMap(w=>Object.values(adjectiveForms(w)));
         options.push(...similar);
       }
-      return {skill,label:`문장에 맞는 형용사 형태를 고르세요 · ${v.label}`,display:`${q.word} (${q.meaning})\n${v.sentence}`,options:uniqueOptions(options,v.correct),answer:v.correct,difficulty:level};
+      return {skill,label:`형용사의 알맞은 형태를 고르세요 · ${v.label}`,display:`${v.display}
+(${q.meaning})`,options:uniqueOptions(options,v.correct),answer:v.correct,difficulty:level};
     }
-    const keys=["je","tu","nous","vous","ilsElles"],key=keys[(q.id+quiz.index)%keys.length],pronoun={je:"je",tu:"tu",nous:"nous",vous:"vous",ilsElles:"ils/elles"}[key];
+    const pronouns={je:"je",tu:"tu",ilElle:"il/elle",nous:"nous",vous:"vous",ilsElles:"ils/elles"};
+    const availableKeys=Object.keys(pronouns).filter(key=>{
+      const value=stripPronoun(q.conjugation?.[key]);
+      return value&&value!=="—";
+    });
+    const key=availableKeys.length?availableKeys[(q.id+quiz.index)%availableKeys.length]:"je";
+    const pronoun=pronouns[key];
     const correct=stripPronoun(q.conjugation?.[key]||q.word);
     const ownForms=Object.values(q.conjugation||{}).map(stripPronoun).filter(x=>x&&x!=="—");
-    const closeForms=nearby.filter(w=>w.type==="verb").flatMap(w=>Object.values(w.conjugation||{}).map(stripPronoun));
-    return {skill,label:`주어 ${pronoun}에 맞는 현재형을 고르세요`,display:`${q.word} → ${pronoun} ...`,options:uniqueOptions([...ownForms,...closeForms],correct),answer:correct,difficulty:level};
+    const closeForms=nearby.filter(w=>w.type==="verb").flatMap(w=>Object.values(w.conjugation||{}).map(stripPronoun)).filter(x=>x&&x!=="—");
+    return {skill,label:`현재형에서 주어 ${pronoun}에 맞는 형태를 고르세요`,display:`${q.word} → ${pronoun} ...`,options:uniqueOptions([...ownForms,...closeForms],correct),answer:correct,difficulty:level};
   }
   const sameContext=nearby.filter(w=>w.exampleKr&&w.category===q.category);
   const lessonContext=nearby.filter(w=>w.exampleKr&&w.lesson===q.lesson);
@@ -395,7 +427,7 @@ function answerQuiz(ok,button,q){
   else{button.classList.add("wrong");quiz.combo=0;feedback.classList.add("error");feedback.textContent=`정답은 “${quiz.currentQuestion?.answer||q.meaning}”`;showCharacterReaction(false,quiz.activeSkill,0)}
   const mastery=updateMastery(q.id,quiz.activeSkill,ok);
   if(!ok)scheduleRetry(q,quiz.activeSkill);
-  else if(mastery.level>quiz.currentQuestion.difficulty)showRewardToast(`${DIFFICULTY_LABELS[mastery.level]} 난이도로 올라갔어요!`);
+  else if(mastery.level>quiz.currentQuestion.difficulty)showRewardToast(`${DIFFICULTY_LABELS[mastery.level]} 단계로 올라갔어요!`);
   progress=recordResult(progress,q.id,ok,quiz.activeSkill);if(quiz.daily&&!q.__retry)progress.todayDone=Math.min(10,progress.todayDone+1);
   $("quizExampleFr").textContent=q.example;$("quizExampleKr").textContent=q.exampleKr;$("quizExample").classList.remove("hidden");$("quizNext").classList.remove("hidden");saveProgress();renderHome();renderProgress()
 }
@@ -487,7 +519,7 @@ window.resetProgress=()=>{if(confirm("모든 학습 기록을 초기화할까요
 function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();renderStudy();renderWords();renderKitchen();renderCollection();renderProgress()}
 
 
-/* V4.5.0 character motion controller */
+/* V4.5.1 character motion controller */
 function restartCharacterMotion(el,kind="wave"){
   if(!el||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   el.classList.remove("motion-wave","motion-look","motion-hop");
@@ -517,7 +549,7 @@ window.addEventListener("load",()=>setTimeout(startCharacterMotionLoop,500));
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.5.0-b3");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.5.1-b3");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
