@@ -6,7 +6,7 @@ let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordInd
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.5.1",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:"4.5.2",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -38,8 +38,8 @@ function validateData(words,lessonsPayload,recipesPayload){
   });
 }
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.5.1").then(r=>r.json()),fetch("./data/lessons.json?v=4.5.1").then(r=>r.json()),fetch("./data/recipes.json?v=4.5.1").then(r=>r.json())]);
-  validateData(w,l,r);WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;progress.version="4.5.1";saveProgress();renderAll();
+  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.5.2").then(r=>r.json()),fetch("./data/lessons.json?v=4.5.2").then(r=>r.json()),fetch("./data/recipes.json?v=4.5.2").then(r=>r.json())]);
+  validateData(w,l,r);WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;progress.version="4.5.2";saveProgress();renderAll();
 }
 function showScreen(id,navButton){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");
@@ -175,7 +175,8 @@ function makeQuestion(q,requestedSkill){
     const plural=`des ${q.plural||q.word}`;
     const useDefinite=q.articleMode==="definite"||level>=3;
     if(level===1&&!useDefinite){
-      return {skill,label:`명사의 성에 맞는 부정관사를 고르세요 · ${genderLabel(q)}`,display:q.word,options:uniqueOptions([wrongIndefinite,"le","la"],q.article),answer:q.article,difficulty:level};
+      const articleChoices=["un","une","des","l’"].filter(a=>a!==q.article);
+      return {skill,label:"빈칸에 알맞은 부정관사를 고르세요",display:`___ ${q.word}`,options:uniqueOptions(articleChoices,q.article),answer:q.article,difficulty:level};
     }
     if(level===2&&!useDefinite){
       return {skill,label:"결정사와 명사의 성을 맞추세요",display:`${q.meaning} · ${q.word}`,options:uniqueOptions([`${wrongIndefinite} ${q.word}`,correctDefinite,plural],correctIndefinite),answer:correctIndefinite,difficulty:level};
@@ -382,9 +383,9 @@ function selectDailyWords(){
 window.startDaily=()=>{quiz={items:selectDailyWords(),index:0,skill:"meaning",answered:false,daily:true,combo:0,retryQueue:[],retryCount:{}};showScreen("quizScreen");renderQuiz()};
 window.startQuiz=skill=>{
   let pool=lessonWords();
-  if(skill==="article") pool=pool.filter(w=>w.type==="noun");
+  if(skill==="article") pool=pool.filter(w=>w.type==="noun"&&w.articlePractice!==false);
   if(skill==="form") pool=pool.filter(w=>w.type==="noun"||w.type==="verb"||w.type==="adjective");
-  if(!pool.length) pool=WORDS.filter(w=>skill!=="article"||w.type==="noun");
+  if(!pool.length) pool=WORDS.filter(w=>skill!=="article"||(w.type==="noun"&&w.articlePractice!==false));
   quiz={items:shuffled(pool).slice(0,8),index:0,skill,answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};showScreen("quizScreen");renderQuiz()
 };
 
@@ -519,7 +520,7 @@ window.resetProgress=()=>{if(confirm("모든 학습 기록을 초기화할까요
 function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();renderStudy();renderWords();renderKitchen();renderCollection();renderProgress()}
 
 
-/* V4.5.1 character motion controller */
+/* V4.5.2 character motion controller */
 function restartCharacterMotion(el,kind="wave"){
   if(!el||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   el.classList.remove("motion-wave","motion-look","motion-hop");
@@ -549,7 +550,7 @@ window.addEventListener("load",()=>setTimeout(startCharacterMotionLoop,500));
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.5.1-b3");
+    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.5.2-b3");
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });
