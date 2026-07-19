@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8b6caf">
+<meta name="description" content="CE1~CE2 수준의 어린이 프랑스어 학습 앱">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>Yeonjae French</title>
+<link rel="stylesheet" href="./style.css?v=4.4.6">
+<link rel="stylesheet" href="./assets/styles/design-system.css?v=4.4.6">
+<link rel="stylesheet" href="./assets/styles/components.css?v=4.4.6">
+</head>
+<body>
+<div id="offlineBanner" class="offline-banner hidden" role="status">📡 오프라인 모드 · 저장된 학습은 계속할 수 있어요.</div>
+<div id="celebrationLayer" class="celebration-layer" aria-hidden="true"></div>
+<div class="app">
+<section class="screen active" id="homeScreen">
+  <header class="topbar home-topbar">
+    <div><small class="eyebrow">CE1 · CE2 FRANÇAIS</small><div class="brand">Yeonjae French</div></div>
+    <div class="top-actions"><div class="pill streak-pill">🔥 <span id="streakTop">1</span></div><div class="pill">⭐ <span id="starsTop">0</span></div></div>
+  </header>
+
+  <div class="home-hero card home-hero-simple">
+    <div class="hero-copy">
+      <small class="hero-kicker">BONJOUR, YEONJAE!</small>
+      <h1 id="homeGreeting">오늘도 프랑스어를<br>재미있게 배워 보자!</h1>
+      <div class="speech" id="homeSpeech">오늘의 10문제를 풀고<br>요리 재료를 모아 보자.</div>
+      <button class="hero-start" onclick="startDaily()">오늘의 학습 시작 <span>→</span></button>
+    </div>
+    <img class="hero-cat hero-trio character-trio character-motion character-home" id="homeCat" src="./assets/characters/trio-vector.svg" alt="쁘띠냥, 치즈냥, 라벤더냥">
+    <div class="hero-progress">
+      <div class="levelbox"><span>LEVEL <b id="levelNumber">1</b></span><span><b id="xpCurrent">0</b>/100 XP</span></div>
+      <div class="progress slim"><div id="xpBar"></div></div>
+    </div>
+  </div>
+
+  <div class="daily-main card home-daily-simple">
+    <div class="daily-heading">
+      <div><small>DAILY MISSION</small><b>오늘의 혼합 학습</b></div>
+      <span class="daily-score"><span id="todayDone">0</span>/10</span>
+    </div>
+    <div class="progress"><div id="todayBar"></div></div>
+    <div class="daily-compact-row">
+      <div class="food-stage compact-stage"><img id="foodImage" src="./assets/foods/stage-0.svg" alt="오늘의 보상"></div>
+      <div class="daily-copy"><b id="dailyStatus">10문제를 완료하고<br>요리 재료를 모아 보세요.</b><small id="todayLabel"></small></div>
+    </div>
+    <div class="reward-ingredients compact-rewards" id="homeIngredientPreview"></div>
+  </div>
+
+  <div class="home-quick-actions" aria-label="빠른 이동">
+    <button onclick="showScreen('studyScreen',document.querySelectorAll('.nav button')[1])"><span>📖</span><b>단어 학습</b></button>
+    <button onclick="showScreen('wordsScreen',document.querySelectorAll('.nav button')[2])"><span>🔁</span><b>복습하기</b></button>
+    <button onclick="showScreen('kitchenScreen',document.querySelectorAll('.nav button')[3])"><span>🍳</span><b>요리하기</b></button>
+  </div>
+</section>
+
+<section class="screen" id="studyScreen">
+  <header class="topbar"><button class="pill" onclick="showScreen('homeScreen')">← 홈</button><div class="brand smallbrand">학습</div><div class="pill" id="studyCount">1/8</div></header>
+  <div class="lesson-tabs" id="lessonTabs"></div>
+  <div class="lesson-progress-card">
+    <div class="row"><span id="lessonProgressTitle">단원 진행도</span><b id="lessonProgressText">0%</b></div>
+    <div class="progress lesson-progress"><div id="lessonProgressBar"></div></div>
+  </div>
+  <div class="study-guide-panel" id="studyGuidePanel" data-guide="petit">
+    <img id="studyGuideCat" class="character-motion character-study" src="./assets/characters/petit-vector.svg" alt="학습 도우미">
+    <div><b id="studyGuideName">쁘띠냥 · Petit</b><p id="studyGuideSpeech">단어를 소리 내어 읽고 뜻을 확인해 보자냥!</p></div>
+  </div>
+  <div class="card study-card" id="studyCard">
+    <div class="study-emoji" id="studyEmoji"></div>
+    <div class="study-word" id="studyWord"></div>
+    <div class="study-meaning" id="studyMeaning"></div>
+    <div class="meta-grid">
+      <div class="meta"><small>품사·성</small><b id="studyType"></b></div>
+      <div class="meta"><small id="studyFormLabel">복수형</small><b id="studyForm"></b></div>
+    </div>
+    <div class="conjugation hidden" id="conjugationBox"></div>
+    <div class="audio-row">
+      <button class="audio-btn" onclick="playStudyAudio('word')">🔊 단어</button>
+      <button class="audio-btn" onclick="playStudyAudio('example')">💬 문장</button>
+      <button class="audio-btn" onclick="playStudyAudio('word',true)">🐢 천천히</button>
+    </div>
+    <div class="example"><b id="studyExampleFr"></b><br><span id="studyExampleKr"></span></div>
+    <div class="row study-nav"><button class="secondary" onclick="studyPrev()">← 이전</button><button class="secondary" onclick="studyNext()">다음 →</button></div>
+  </div>
+</section>
+
+<section class="screen" id="quizScreen" data-skill="meaning">
+  <header class="topbar quiz-topbar">
+    <button class="pill quiz-exit" onclick="showScreen('homeScreen')" aria-label="퀴즈 종료">×</button>
+    <div class="quiz-progress-wrap" aria-label="퀴즈 진행도"><div class="quiz-progress"><div id="quizProgressBar"></div></div><b id="quizCount">1/10</b></div>
+    <div class="pill quiz-star">⭐ <span id="quizStars">0</span></div>
+  </header>
+  <main class="quiz-layout">
+    <section class="quiz-guide-panel">
+      <div class="quiz-cat-wrap"><img id="quizCat" src="./assets/characters/petit-vector.svg" alt="학습 도우미 고양이" class="quiz-cat character-motion character-quiz"><span id="quizReaction" class="quiz-reaction hidden" aria-hidden="true">✨</span></div>
+      <div class="quiz-guide-copy">
+        <div class="cat-name" id="quizCatName">쁘띠냥 · Petit</div>
+        <div class="quiz-speech" id="quizGuideLine">단어의 뜻을 차근차근 찾아보자냥!</div>
+      </div>
+    </section>
+    <section class="card quiz-card">
+      <div class="quiz-label" id="quizLabel"></div>
+      <div class="quiz-audio-panel hidden" id="quizAudioPanel" aria-label="프랑스어 듣기 도구">
+        <div class="quiz-audio-copy"><b>🎧 Écoute</b><small id="audioHint">처음에는 보통 속도로 들어 보세요</small></div>
+        <div class="quiz-audio-actions">
+          <button class="quiz-audio-btn" type="button" onclick="playQuizAudio(false)" aria-label="보통 속도로 다시 듣기">🔊 보통 속도</button>
+          <button class="quiz-audio-btn slow" type="button" onclick="playQuizAudio(true)" aria-label="천천히 다시 듣기">🐢 천천히</button>
+        </div>
+        <span class="audio-status" id="audioStatus" aria-live="polite">자동으로 한 번 재생돼요</span>
+      </div>
+      <div class="study-word quiz-word" id="quizWord"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="feedback" id="quizFeedback" aria-live="polite"></div>
+      <div class="example hidden" id="quizExample"><b id="quizExampleFr"></b><br><span id="quizExampleKr"></span></div>
+      <button class="primary hidden" id="quizNext" onclick="nextQuiz()">다음 문제 →</button>
+    </section>
+  </main>
+</section>
+
+<section class="screen" id="wordsScreen">
+  <header class="topbar"><div><small class="eyebrow">VOCABULAIRE</small><div class="brand smallbrand">단어장</div></div><div class="pill"><span id="wordCountTop">0</span>개</div></header>
+  <label class="search-box" for="wordSearch">
+    <span aria-hidden="true">🔎</span>
+    <input id="wordSearch" type="search" placeholder="프랑스어 또는 한국어로 검색" autocomplete="off" oninput="searchWords(this.value)">
+    <button type="button" aria-label="검색어 지우기" onclick="clearWordSearch()">×</button>
+  </label>
+  <div class="filter-row"><button class="filter active" onclick="filterWords('all',this)">전체</button><button class="filter" onclick="filterWords('CE1',this)">CE1</button><button class="filter" onclick="filterWords('CE2',this)">CE2</button><button class="filter" onclick="filterWords('due',this)">복습</button></div>
+  <div class="word-list" id="wordList"></div>
+  <div class="empty-state hidden" id="wordEmpty">검색 결과가 없어요.</div>
+</section>
+
+<section class="screen" id="kitchenScreen">
+  <header class="topbar"><div><small class="eyebrow">CUISINE FRANÇAISE</small><div class="brand smallbrand">프랑스 음식 만들기</div></div><div class="pill">완성 <span id="madeCountTop">0</span></div></header>
+  <div class="kitchen-hero"><div><small>MON PETIT RESTAURANT</small><h2>오늘은 어떤 음식을 만들까?</h2><p>모은 재료로 프랑스 음식을 완성하고 컬렉션을 채워 보세요.</p></div><div class="kitchen-hero-plate" id="kitchenHeroPlate">🍽️</div></div>
+  <div class="ingredient-overview">
+    <div class="ingredient-summary"><span>🧺</span><div><small>보유 재료</small><b><span id="ingredientTotal">0</span>개</b></div></div>
+    <div class="ingredient-summary"><span>🎯</span><div><small>다음 보상까지</small><b><span id="rewardStep">0</span>/2 정답</b></div></div>
+  </div>
+  <div class="card ingredient-card"><div class="row"><b>재료 보관함</b><small>정답 2회마다 1개, 5연속 정답에는 보너스를 받아요.</small></div><div class="ingredient-grid" id="ingredientGrid"></div></div>
+  <div class="card reward-history-card"><div class="row"><b>최근 획득</b><small>최대 5개 표시</small></div><div id="rewardHistory" class="reward-history"></div></div>
+  <div class="section-title"><div><small>RECETTES</small><h2>프랑스 음식 컬렉션</h2></div><span class="ready-count">지금 만들 수 있는 음식 <b id="readyRecipeCount">0</b>개</span></div>
+  <div class="kitchen-subnav"><button class="kitchen-book-btn" onclick="showScreen('collectionScreen')">📖 음식 도감 보기</button></div>
+  <div class="recipe-filters"><button class="filter active" onclick="filterRecipes('all',this)">전체</button><button class="filter" onclick="filterRecipes('쉬움',this)">쉬움</button><button class="filter" onclick="filterRecipes('보통',this)">보통</button><button class="filter" onclick="filterRecipes('어려움',this)">어려움</button></div>
+  <div class="recipe-grid" id="recipeGrid"></div>
+</section>
+
+<div class="cook-modal hidden" id="cookModal" role="dialog" aria-modal="true" aria-labelledby="cookModalTitle">
+  <div class="cook-modal-card">
+    <button class="cook-modal-close" type="button" aria-label="닫기" onclick="closeCookModal()">×</button>
+    <div class="cook-sparkles" aria-hidden="true">✦ ✨ ✦</div>
+    <div class="cook-character-party" aria-hidden="true"><img class="character-motion character-party" src="./assets/characters/petit-vector.svg" alt=""><img class="character-motion character-party" src="./assets/characters/fromage-vector.svg" alt=""><img class="character-motion character-party" src="./assets/characters/lavande-vector.svg" alt=""></div><div class="cook-result-emoji" id="cookResultEmoji"><img src="./assets/foods/recipes/croissant.svg" alt="완성 음식"></div>
+    <small>RECETTE TERMINÉE!</small>
+    <h2 id="cookModalTitle">음식 완성!</h2>
+    <p class="cook-result-fr" id="cookResultFr"></p>
+    <p class="cook-result-info" id="cookResultInfo"></p>
+    <button class="primary" type="button" onclick="closeCookModal()">컬렉션에 담기</button>
+  </div>
+</div>
+
+
+<section class="screen" id="collectionScreen">
+  <header class="topbar"><div><small class="eyebrow">MON LIVRE DE RECETTES</small><div class="brand smallbrand">프랑스 음식 도감</div></div><div class="pill"><span id="collectionCountTop">0</span>/15</div></header>
+  <div class="collection-hero">
+    <div><small>COLLECTION</small><h2>내가 완성한 프랑스 음식</h2><p>음식을 만들수록 프랑스의 지역과 음식 이름을 함께 배울 수 있어요.</p></div>
+    <div class="collection-medal"><span id="collectionMedal">🔒</span><b id="collectionRank">첫 요리를 완성해 보세요</b></div>
+  </div>
+  <div class="collection-progress-card">
+    <div class="row"><b>도감 완성도</b><b><span id="collectionPercent">0</span>%</b></div>
+    <div class="progress collection-progress"><div id="collectionBar"></div></div>
+    <div class="collection-summary"><span>발견 <b id="collectionFound">0</b></span><span>미발견 <b id="collectionLocked">15</b></span><span>총 완성 <b id="collectionMadeTotal">0</b>회</span></div>
+  </div>
+  <div class="collection-toolbar">
+    <div class="recipe-filters"><button class="filter active" onclick="filterCollection('all',this)">전체</button><button class="filter" onclick="filterCollection('found',this)">완성</button><button class="filter" onclick="filterCollection('locked',this)">미완성</button></div>
+    <button class="collection-kitchen-link" onclick="showScreen('kitchenScreen',document.querySelectorAll('.nav button')[3])">🍳 요리하러 가기</button>
+  </div>
+  <div class="collection-grid" id="collectionGrid"></div>
+</section>
+
+<div class="collection-modal hidden" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionModalTitle">
+  <div class="collection-modal-card">
+    <button class="cook-modal-close" type="button" aria-label="닫기" onclick="closeCollectionModal()">×</button>
+    <div class="collection-detail-emoji" id="collectionDetailEmoji"><img src="./assets/foods/recipes/croissant.svg" alt="프랑스 음식"></div>
+    <small id="collectionDetailRegion">FRANCE</small>
+    <h2 id="collectionModalTitle"></h2>
+    <p class="collection-detail-ko" id="collectionDetailKo"></p>
+    <div class="collection-gender" id="collectionDetailGender"></div>
+    <p class="collection-detail-desc" id="collectionDetailDesc"></p>
+    <div class="collection-detail-count" id="collectionDetailCount"></div>
+    <button class="primary" type="button" onclick="closeCollectionModal()">도감으로 돌아가기</button>
+  </div>
+</div>
+
+<section class="screen" id="progressScreen">
+  <header class="topbar"><div><small class="eyebrow">PROGRÈS</small><div class="brand smallbrand">학습 기록</div></div><div class="pill">CE1 → CE2</div></header>
+  <div class="progress-hero">
+    <div><small>MON PROGRÈS</small><h2>오늘도 한 걸음 성장했어요!</h2><p>단어, 듣기, 문장 실력을 영역별로 확인해 보세요.</p></div>
+    <div class="progress-hero-medal">🏅</div>
+  </div>
+  <div class="card progress-main-card">
+    <div class="row"><b>학습한 단어</b><b><span id="learnedWords">0</span>/<span id="totalWords">0</span></b></div>
+    <div class="progress"><div id="learnedBar"></div></div>
+    <div class="stats-grid">
+      <div class="stat"><span>푼 문제</span><b id="totalAttempts">0</b></div>
+      <div class="stat"><span>정답률</span><b id="totalAccuracy">0%</b></div>
+      <div class="stat"><span>연속 정답 최고</span><b id="bestCombo">0</b></div>
+      <div class="stat"><span>완성한 프랑스 음식</span><b id="dessertCount">0</b></div>
+    </div>
+  </div>
+  <div class="card"><b>영역별 성취도</b><div class="stats-grid" id="skillStats"></div></div>
+  <div class="release-info"><b>Yeonjae French V4.3.0</b><small>정식 릴리스 · 콘텐츠 100단어 · 음식 15종</small></div><button class="text-button" onclick="resetProgress()">학습 기록 초기화</button>
+</section>
+
+<nav class="nav" aria-label="주요 메뉴">
+  <button class="active" aria-label="홈" onclick="showScreen('homeScreen',this)"><span>🏠</span>홈</button>
+  <button aria-label="학습" onclick="showScreen('studyScreen',this)"><span>📖</span>학습</button>
+  <button aria-label="단어장" onclick="showScreen('wordsScreen',this)"><span>📚</span>단어장</button>
+  <button aria-label="요리" onclick="showScreen('kitchenScreen',this)"><span>🍳</span>요리</button>
+  <button aria-label="기록" onclick="showScreen('progressScreen',this)"><span>📈</span>기록</button>
+</nav>
+</div>
+<script type="module" src="./app.js?v=4.4.6"></script>
+</body>
+</html>
