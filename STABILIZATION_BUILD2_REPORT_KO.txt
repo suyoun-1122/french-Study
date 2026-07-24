@@ -1,23 +1,7 @@
-# Changelog
+Yeonjae French V4.5.0 Build 2 — 버전·캐시·PWA 안정화
 
-## V4.5.7 Build 1
-- 이전 Build/Patch 안내 파일 정리
-- Flutter 잔여 파일 제거
-- 잘못된 루트 `words.json`, `lessons.json` 제거
-- 루트의 중복 고양이·단계 SVG 제거
-- 사용하지 않는 과거 PNG·SVG 캐릭터 제거
-- 실제 앱이 참조하는 데이터·캐릭터·음식 파일만 유지
-- README를 현재 앱 내용에 맞게 갱신
-
-이 단계에서는 기능 코드와 저장 구조를 변경하지 않았습니다.
-
-## V4.5.7 Build 2
-- 버전 번호와 캐시 쿼리를 4.5.7으로 통일
-- 서비스워커 업데이트·오프라인 처리 개선
-- PWA 아이콘과 manifest 메타데이터 추가
-- 기존 사용자 학습 기록 유지
-
-## V4.5.7
-- 관사 문제 제목에서 남성명사/여성명사 정답 힌트 제거
-- Easy 관사 문제를 빈칸형으로 변경
-- articlePractice=false 단어는 관사 전용 퀴즈에서 제외
+1. index.html/app.js/data/service-worker 버전 4.5.0 통일
+2. 기존 캐시 자동 삭제와 네트워크 우선 갱신 적용
+3. PWA 아이콘 192px, 512px, maskable 512px 추가
+4. manifest 이름·설명·범위·테마 설정 보완
+5. 기존 localStorage 저장 키 yeonjaeFrenchV3 유지

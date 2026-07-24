@@ -1,32 +1,4 @@
-{
-  "name": "Yeonjae French Pâtisserie",
-  "short_name": "Yeonjae French",
-  "description": "아이들을 위한 프랑스어 단어·퀴즈·요리 수집 학습 게임",
-  "lang": "ko-KR",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#fff9ee",
-  "theme_color": "#745492",
-  "icons": [
-    {
-      "src": "./assets/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./assets/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./assets/icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ]
-}
+Yeonjae French V4.5.6 Build 8
+- 동사 형태 변화 문제의 보기를 같은 동사의 다른 활용형으로만 구성
+- 다른 동사의 활용형이 보기로 섞이던 문제 수정
+- 형태 문제용 동사는 최소 4개 활용형이 있는 동사만 출제
