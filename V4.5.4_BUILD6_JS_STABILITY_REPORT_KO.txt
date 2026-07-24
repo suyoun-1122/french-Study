@@ -1,8 +1,5 @@
-Yeonjae French V4.5.4 Build 6 — JavaScript·데이터 안정화
-
-- 앱 버전 상수를 APP_VERSION으로 통합
-- JSON 요청의 HTTP 상태와 Content-Type 검사 추가
-- 캐시된 HTML이 JSON으로 잘못 전달될 경우 명확히 차단
-- 문장 빈칸 문제의 단어 경계 정규식 오류 수정
-- 서비스워커와 화면 버전을 4.5.4로 통일
-- 기존 localStorage 키 유지
+Yeonjae French V4.5.1 Build 4 — 프랑스 초등 교육과정형 문제 개편
+- 모든 명사를 무조건 복수형으로 묻던 문제 제거
+- 추상·물질 명사는 문맥 완성 문제로 전환
+- 단수/복수, 명사구 일치, 형용사 형태, 현재형 활용을 CE1–CE2 단계로 정리
+- l’ 정관사 및 비인칭 동사 처리 수정

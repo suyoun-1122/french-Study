@@ -1,81 +1,31 @@
-const CACHE = "yeonjae-french-v4-5-5";
-const VERSION = "4.5.5";
-const CORE = [
-  "./", "./index.html", "./manifest.webmanifest",
-  `./style.css?v=${VERSION}`,
-  `./assets/styles/design-system.css?v=${VERSION}`,
-  `./assets/styles/components.css?v=${VERSION}`,
-  `./app.js?v=${VERSION}`, "./audio.js", "./review.js",
-  `./data/words.json?v=${VERSION}`,
-  `./data/lessons.json?v=${VERSION}`,
-  `./data/recipes.json?v=${VERSION}`,
-  "./assets/icons/icon-192.png", "./assets/icons/icon-512.png", "./assets/icons/icon-maskable-512.png",
-  "./assets/characters/petit-vector.svg", "./assets/characters/fromage-vector.svg", "./assets/characters/lavande-vector.svg", "./assets/characters/trio-vector.svg",
-  "./assets/characters/petit-happy.svg", "./assets/characters/petit-think.svg",
-  "./assets/characters/fromage-happy.svg", "./assets/characters/fromage-think.svg",
-  "./assets/characters/lavande-happy.svg", "./assets/characters/lavande-think.svg",
-  "./assets/foods/recipes/croissant.svg", "./assets/foods/recipes/baguette.svg", "./assets/foods/recipes/crepe.svg",
-  "./assets/foods/recipes/madeleine.svg", "./assets/foods/recipes/macaron.svg", "./assets/foods/recipes/quiche.svg",
-  "./assets/foods/recipes/croquemonsieur.svg", "./assets/foods/recipes/ratatouille.svg", "./assets/foods/recipes/gratin.svg",
-  "./assets/foods/recipes/soupe.svg", "./assets/foods/recipes/boeuf.svg", "./assets/foods/recipes/coq.svg",
-  "./assets/foods/recipes/cassoulet.svg", "./assets/foods/recipes/bouillabaisse.svg", "./assets/foods/recipes/tarte.svg"
-];
+let cachedFrenchVoice=null;
 
-self.addEventListener("install", event => {
-  self.skipWaiting();
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)));
-});
+function selectFrenchVoice(){
+  if(cachedFrenchVoice)return cachedFrenchVoice;
+  const voices=window.speechSynthesis?.getVoices?.()||[];
+  cachedFrenchVoice=voices.find(v=>/^fr[-_](FR|CA|BE|CH)$/i.test(v.lang||""))||voices.find(v=>(v.lang||"").toLowerCase().startsWith("fr"))||null;
+  return cachedFrenchVoice;
+}
 
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
-      .then(() => self.clients.claim())
-  );
-});
+if(window.speechSynthesis){
+  window.speechSynthesis.addEventListener?.("voiceschanged",()=>{cachedFrenchVoice=null;selectFrenchVoice()});
+}
 
-self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
-  const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin) return;
-
-  const isNavigation = event.request.mode === "navigate";
-  const isFreshAsset =
-    url.pathname.endsWith("index.html") ||
-    url.pathname.endsWith("app.js") ||
-    url.pathname.endsWith(".css") ||
-    url.pathname.includes("/data/") ||
-    url.pathname.endsWith("manifest.webmanifest");
-
-  if (isNavigation) {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          if (response.ok) caches.open(CACHE).then(cache => cache.put("./index.html", response.clone()));
-          return response;
-        })
-        .catch(() => caches.match("./index.html"))
-    );
+export function speakFrench(text,slow=false,onEnd=null){
+  if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){
+    alert("이 브라우저에서는 음성을 지원하지 않아요.");
+    if(typeof onEnd==="function")onEnd();
     return;
   }
-
-  if (isFreshAsset) {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
-    return;
-  }
-
-  event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
-      if (response.ok) caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
-      return response;
-    }))
-  );
-});
+  window.speechSynthesis.cancel();
+  const utterance=new SpeechSynthesisUtterance(String(text||""));
+  utterance.lang="fr-FR";
+  utterance.rate=slow?0.60:0.82;
+  utterance.pitch=1.0;
+  utterance.volume=1;
+  const french=selectFrenchVoice();
+  if(french)utterance.voice=french;
+  utterance.onend=()=>{if(typeof onEnd==="function")onEnd()};
+  utterance.onerror=()=>{if(typeof onEnd==="function")onEnd()};
+  window.speechSynthesis.speak(utterance);
+}

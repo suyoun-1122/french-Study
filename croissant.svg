@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="쁘띠냥">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff9fd"/><stop offset="1" stop-color="#f7efff"/></linearGradient>
+  <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6ccd7"/><stop offset="1" stop-color="#9aa2b0"/></linearGradient>
+  <linearGradient id="ear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffdce4"/><stop offset="1" stop-color="#f6bccc"/></linearGradient>
+  <linearGradient id="beret" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7f8b"/><stop offset="1" stop-color="#d53a51"/></linearGradient>
+  <linearGradient id="coat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7f83"/><stop offset="1" stop-color="#e04254"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#6b547f" flood-opacity=".18"/></filter>
+</defs>
+<g filter="url(#shadow)">
+  <g transform="translate(120 120)">
+    <ellipse cx="0" cy="64" rx="78" ry="22" fill="#eadff6" opacity=".8"/>
+    <path d="M-78 48c6-22 21-39 43-46h70c22 7 37 24 43 46-10 22-33 39-78 39s-68-17-78-39z" fill="url(#bg)"/>
+    <path d="M-58 52c-11 24-8 44 8 55-16 6-31 3-42-9-10-12-11-29-3-42 9-16 24-19 37-4z" fill="#9aa2b0" stroke="#635871" stroke-width="4"/>
+    <path d="M58 52c11 24 8 44-8 55 16 6 31 3 42-9 10-12 11-29 3-42-9-16-24-19-37-4z" fill="#9aa2b0" stroke="#635871" stroke-width="4"/>
+    <path d="M-50-26c-19-14-25-31-19-52l31 23" fill="#aab1bc" stroke="#635871" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M50-26c19-14 25-31 19-52L38-55" fill="#aab1bc" stroke="#635871" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M-30-58-18-47-36-31" fill="url(#ear)"/><path d="M30-58 18-47 36-31" fill="url(#ear)"/>
+    <ellipse cx="0" cy="2" rx="62" ry="58" fill="url(#fur)" stroke="#635871" stroke-width="4"/>
+    <ellipse cx="0" cy="15" rx="43" ry="36" fill="#fff"/>
+    <path d="M-22-16c6-8 13-12 22-12s16 4 22 12" fill="none" stroke="#848b98" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-17-4h-20M-18 10h-24M17-4h20M18 10h24" stroke="#635871" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="-19" cy="2" rx="6" ry="8.5" fill="#2c2930"/><ellipse cx="19" cy="2" rx="6" ry="8.5" fill="#2c2930"/>
+    <circle cx="-17" cy="0" r="2" fill="#fff"/><circle cx="21" cy="0" r="2" fill="#fff"/>
+    <path d="M-8 18 0 24 8 18" fill="#f09dab" stroke="#635871" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M0 24v7" stroke="#635871" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-14 35c9 8 33 8 42 0" fill="none" stroke="#635871" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="-32" cy="20" r="5" fill="#f7bbc7" opacity=".82"/><circle cx="32" cy="20" r="5" fill="#f7bbc7" opacity=".82"/>
+    <path d="M-48 46c5-17 20-29 39-33h18c19 4 34 16 39 33" fill="url(#coat)" stroke="#bc3548" stroke-width="4"/>
+    <path d="M0 17v38" stroke="#ffbac2" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+    <path d="M-14 69c-12 0-18 8-18 20v8h29l3-27z" fill="#fff" stroke="#635871" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M14 69c12 0 18 8 18 20v8H3L0 70z" fill="#fff" stroke="#635871" stroke-width="4" stroke-linejoin="round"/>
+    <g transform="translate(0 87)">
+      <path d="M-32 0h64c8 0 13 6 13 13v39H-45V13C-45 6-40 0-32 0z" fill="#cf2d44" stroke="#8f1e31" stroke-width="4"/>
+      <path d="M0 0v52" stroke="#ff9ea9" stroke-width="4"/>
+      <path d="M-23 12h14M-23 23h10M9 12h14M9 23h10" stroke="#ffdce0" stroke-width="3" stroke-linecap="round" opacity=".88"/>
+      <path d="M-5 14q-14 7-18 20M5 14q14 7 18 20" stroke="#635871" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="-6" cy="16" r="6" fill="#fff" stroke="#635871" stroke-width="3"/><circle cx="6" cy="16" r="6" fill="#fff" stroke="#635871" stroke-width="3"/>
+    </g>
+    <g transform="translate(6 -82)">
+      <ellipse cx="0" cy="15" rx="31" ry="10" fill="#ea5164"/>
+      <path d="M-39 19c8-17 23-28 43-28 19 0 33 8 42 21-7 8-18 12-28 15-15 3-35 2-57-8z" fill="url(#beret)" stroke="#bc3548" stroke-width="4"/>
+      <path d="M-10-5c8-8 16-11 29-11" stroke="#ffc1ca" stroke-width="3.5" stroke-linecap="round" opacity=".9"/>
+    </g>
+    <g fill="#fff" opacity=".75"><circle cx="-63" cy="-60" r="3.2"/><circle cx="66" cy="-69" r="4"/><circle cx="76" cy="-56" r="2.4"/></g>
+  </g>
+</g>
+</svg>

@@ -1,36 +1,20 @@
-# Yeonjae French
-
-어린이를 위한 CE1~CE2 수준 프랑스어 학습 웹앱입니다.
-
-## 현재 콘텐츠
-- 프랑스어 단어 100개
-- 단원 10개
-- 뜻·관사·형태 변화·듣기·문장 이해 퀴즈
-- Easy / Medium / Hard 적응형 난이도
-- 오답 반복 학습
-- 쁘띠냥·치즈냥·라벤더냥 SVG 캐릭터
-- 재료 수집, 프랑스 음식 15종 제작 및 도감
-- 브라우저 저장과 오프라인 실행 지원
-
-## GitHub Pages
-저장소 루트에 이 프로젝트의 파일과 폴더를 업로드한 뒤 GitHub Pages를 활성화하면 됩니다.
-
-## 주요 구조
-- `index.html`: 화면 구조
-- `app.js`: 학습·퀴즈·요리 로직
-- `style.css`: 전체 UI
-- `data/`: 단어·단원·레시피 데이터
-- `assets/characters/`: 현재 사용 중인 SVG 캐릭터
-- `assets/foods/`: 음식·진행 이미지
-
-## 현재 단계
-V4.5.5 Build 2 — 버전·캐시·PWA 안정화본
-
-이 빌드는 기존 기능을 바꾸지 않고, 이전 버전의 중복·미사용 파일을 제거한 정리 단계입니다.
-
-
-## Build 2 안정화
-- 앱·데이터·CSS·서비스워커 버전 4.5.5 통일
-- 구형 캐시 자동 삭제 및 네트워크 우선 업데이트 적용
-- PWA 설치 아이콘 192/512/maskable 추가
-- 기존 학습 기록 localStorage 키 유지
+import fs from 'node:fs';
+const words=JSON.parse(fs.readFileSync(new URL('../data/words.json',import.meta.url),'utf8'));
+const errors=[];
+const ids=new Set();
+for(const w of words){
+  if(ids.has(w.id)) errors.push(`중복 ID: ${w.id}`); ids.add(w.id);
+  for(const key of ['id','ce','lesson','category','type','word','meaning','example','exampleKr']) if(w[key]===undefined||w[key]==='') errors.push(`${w.id}: ${key} 누락`);
+  if(w.type==='noun'){
+    if(!w.article||!w.gender||!w.plural) errors.push(`${w.id}: 명사 정보 누락`);
+    if(w.gender==='masculine'&&w.article==='une') errors.push(`${w.id}: 남성명사/une 불일치`);
+    if(w.gender==='feminine'&&w.article==='un') errors.push(`${w.id}: 여성명사/un 불일치`);
+  }
+  const ds=w.meaningDistractors||[];
+  if(ds.length<3) errors.push(`${w.id}: 뜻 오답 후보 3개 미만`);
+  if(new Set(ds).size!==ds.length) errors.push(`${w.id}: 뜻 오답 중복`);
+  if(ds.includes(w.meaning)) errors.push(`${w.id}: 정답이 오답 후보에 포함`);
+}
+if(words.length!==100) errors.push(`단어 수 ${words.length}개 (예상 100)`);
+if(errors.length){console.error(errors.join('\n'));process.exit(1)}
+console.log(`검증 통과: 단어 ${words.length}개, ID/필수값/명사 성·관사/오답 후보 정상`);

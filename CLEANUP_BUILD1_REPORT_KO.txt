@@ -1,22 +1,12 @@
-Yeonjae French V4.5.0 Build 1 — 파일 정리 보고서
+# Design System
 
-삭제한 항목
-1. Flutter 잔여 파일: main.dart, lib/, pubspec.yaml
-2. 잘못된 루트 데이터: words.json, lessons.json
-3. 루트 중복 이미지: cat-*.svg, stage-*.svg
-4. 구형 캐릭터: approved PNG, clean PNG, art PNG, animated SVG, 초기 단순 SVG
-5. 과거 Build/Update/Patch 안내 파일
-6. 불필요한 download 파일
+- Main lavender: #CDBCF1
+- Dark lavender: #71519F
+- Pale lavender: #F1ECFF
+- Cream: #FFFAF1
+- Pink: #FFDCE9
+- Mint: #DFF4E8
+- Text: #514760
 
-유지한 핵심 항목
-- index.html, app.js, style.css
-- audio.js, review.js, service-worker.js, manifest.webmanifest
-- data/words.json, data/lessons.json, data/recipes.json
-- 캐릭터 vector/happy/think SVG
-- 홈용 trio-vector.svg
-- 음식 15종 SVG 및 stage 이미지
-- 공통 스타일 파일과 설계 문서
-
-주의
-- 이번 Build는 파일 정리만 수행했습니다.
-- 버전·캐시 통일과 CSS/JS 리팩터링은 다음 Build에서 진행합니다.
+오리지널 고양이 파티시에 SVG 4종:
+default, happy, think, complete
