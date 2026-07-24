@@ -1,0 +1,8 @@
+Yeonjae French V4.5.4 Build 6 — JavaScript·데이터 안정화
+
+- 앱 버전 상수를 APP_VERSION으로 통합
+- JSON 요청의 HTTP 상태와 Content-Type 검사 추가
+- 캐시된 HTML이 JSON으로 잘못 전달될 경우 명확히 차단
+- 문장 빈칸 문제의 단어 경계 정규식 오류 수정
+- 서비스워커와 화면 버전을 4.5.4로 통일
+- 기존 localStorage 키 유지

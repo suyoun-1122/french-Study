@@ -1,12 +1,13 @@
 import { speakFrench } from "./audio.js";
 import { todayKey, recordResult, getDueWords } from "./review.js";
 
+const APP_VERSION="4.5.4";
 const $=id=>document.getElementById(id);
 let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordIndex=0,wordFilter="all",wordSearch="",recipeFilter="all",collectionFilter="all";
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
 
 const emptySkills=()=>({meaning:{a:0,c:0},article:{a:0,c:0},form:{a:0,c:0},listening:{a:0,c:0},example:{a:0,c:0}});
-let progress={version:"4.5.3",stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
+let progress={version:APP_VERSION,stars:0,today:todayKey(),todayDone:0,completedDesserts:[],ingredients:{flour:0,butter:0,egg:0,milk:0,sugar:0,cheese:0,vegetable:0,meat:0,fish:0,fruit:0},madeFoods:{},rewardedDays:[],rewardCounter:0,rewardHistory:[],words:{},difficulty:{},totals:{attempts:0,correct:0},skillTotals:emptySkills(),bestCombo:0};
 
 function loadProgress(){
   try{
@@ -38,8 +39,15 @@ function validateData(words,lessonsPayload,recipesPayload){
   });
 }
 async function loadData(){
-  const [w,l,r]=await Promise.all([fetch("./data/words.json?v=4.5.3").then(r=>r.json()),fetch("./data/lessons.json?v=4.5.3").then(r=>r.json()),fetch("./data/recipes.json?v=4.5.3").then(r=>r.json())]);
-  validateData(w,l,r);WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;progress.version="4.5.3";saveProgress();renderAll();
+  const fetchJson=async path=>{
+    const response=await fetch(`${path}?v=${APP_VERSION}`,{cache:"no-store"});
+    if(!response.ok)throw new Error(`${path} HTTP ${response.status}`);
+    const contentType=response.headers.get("content-type")||"";
+    if(!contentType.includes("application/json"))throw new Error(`${path} 응답이 JSON이 아닙니다.`);
+    return response.json();
+  };
+  const [w,l,r]=await Promise.all([fetchJson("./data/words.json"),fetchJson("./data/lessons.json"),fetchJson("./data/recipes.json")]);
+  validateData(w,l,r);WORDS=w;LESSONS=l.lessons;RECIPES=r.recipes;INGREDIENTS=r.ingredients;progress.version=APP_VERSION;saveProgress();renderAll();
 }
 function showScreen(id,navButton){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");
@@ -59,7 +67,7 @@ const pluralPracticeAllowed=w=>w.type==="noun"&&w.pluralPractice!==false&&Boolea
 const contextualCloze=w=>{
   const source=String(w.example||"");
   const escaped=String(w.word||"").replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-  const pattern=new RegExp(`\b${escaped}\b`,`i`);
+  const pattern=new RegExp(`\\b${escaped}\\b`,`i`);
   return pattern.test(source)?source.replace(pattern,"_____"):`${source}  _____`;
 };
 const genderLabel=w=>w.type==="noun"?(w.gender==="masculine"?"남성명사 (nom masculin)":"여성명사 (nom féminin)"):w.type==="verb"?"동사 (verbe)":"형용사 (adjectif)";
@@ -520,7 +528,7 @@ window.resetProgress=()=>{if(confirm("모든 학습 기록을 초기화할까요
 function renderAll(){if(!WORDS.length)return;renderHome();renderLessonTabs();renderStudy();renderWords();renderKitchen();renderCollection();renderProgress()}
 
 
-/* V4.5.3 character motion controller */
+/* V4.5.4 character motion controller */
 function restartCharacterMotion(el,kind="wave"){
   if(!el||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   el.classList.remove("motion-wave","motion-look","motion-hop");
@@ -550,7 +558,7 @@ window.addEventListener("load",()=>setTimeout(startCharacterMotionLoop,500));
 loadProgress();loadData().catch(e=>{$("homeSpeech").innerHTML="데이터를 불러오지 못했어요.<br>GitHub Pages에서 다시 열어 주세요.";console.error(e)});
 if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
   try{
-    const reg=await navigator.serviceWorker.register("./service-worker.js?v=4.5.3");
+    const reg=await navigator.serviceWorker.register(`./service-worker.js?v=${APP_VERSION}`);
     await reg.update();
   }catch(e){console.warn("서비스 워커 업데이트 실패",e)}
 });

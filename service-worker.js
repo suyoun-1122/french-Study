@@ -1,5 +1,5 @@
-const CACHE = "yeonjae-french-v4-5-3";
-const VERSION = "4.5.3";
+const CACHE = "yeonjae-french-v4-5-4";
+const VERSION = "4.5.4";
 const CORE = [
   "./", "./index.html", "./manifest.webmanifest",
   `./style.css?v=${VERSION}`,
