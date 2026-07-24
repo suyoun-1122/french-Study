@@ -1,7 +1,7 @@
 import { speakFrench } from "./audio.js";
 import { todayKey, recordResult, getDueWords } from "./review.js";
 
-const APP_VERSION="4.5.4";
+const APP_VERSION="4.5.5";
 const $=id=>document.getElementById(id);
 let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordIndex=0,wordFilter="all",wordSearch="",recipeFilter="all",collectionFilter="all";
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
@@ -74,6 +74,11 @@ const genderLabel=w=>w.type==="noun"?(w.gender==="masculine"?"남성명사 (nom 
 const adjectiveForms=w=>{
   const plural=String(w.plural||"").split("/").map(x=>x.trim()).filter(Boolean);
   return {ms:w.word,fs:w.feminine||w.word,mp:plural[0]||`${w.word}s`,fp:plural[1]||plural[0]||`${w.feminine||w.word}s`};
+};
+const adjectiveEligible=w=>{
+  if(!w||w.type!=="adjective"||w.formPractice===false) return false;
+  const f=adjectiveForms(w);
+  return new Set([f.ms,f.fs,f.mp,f.fp].map(v=>String(v||"").trim()).filter(Boolean)).size>=4;
 };
 const stripPronoun=s=>String(s||"").replace(/^(j'|je |tu |il\/elle |nous |vous |ils\/elles )/i,"").trim();
 const uniqueOptions=(items,correct)=>{
@@ -212,20 +217,20 @@ function makeQuestion(q,requestedSkill){
 (${q.meaning})`,options:uniqueOptions([q.word,`des ${q.plural}`,`les ${q.plural}`],correct),answer:correct,difficulty:level};
     }
     if(q.type==="adjective"){
-      const f=adjectiveForms(q),variants=[
-        {label:"여성 단수형",display:`un adjectif au féminin singulier : ${q.word}`,correct:f.fs},
-        {label:"여성 복수형",display:`un adjectif au féminin pluriel : ${q.word}`,correct:f.fp},
-        {label:"남성 복수형",display:`un adjectif au masculin pluriel : ${q.word}`,correct:f.mp},
-        {label:"남성 단수형",display:`un adjectif au masculin singulier : ${q.word}`,correct:f.ms}
+      const source=adjectiveEligible(q)?q:([...(nearby.filter(adjectiveEligible)),...WORDS.filter(adjectiveEligible)].find(w=>w.id!==q.id)||q);
+      const f=adjectiveForms(source);
+      const variants=[
+        {display:`un garçon ____
+(${source.meaning})`,correct:f.ms},
+        {display:`une fille ____
+(${source.meaning})`,correct:f.fs},
+        {display:`des garçons ____
+(${source.meaning})`,correct:f.mp},
+        {display:`des filles ____
+(${source.meaning})`,correct:f.fp}
       ];
-      const v=variants[(q.id+quiz.index)%variants.length];
-      const options=[f.ms,f.fs,f.mp,f.fp];
-      if(new Set(options).size<4){
-        const similar=nearby.filter(w=>w.type==="adjective").flatMap(w=>Object.values(adjectiveForms(w)));
-        options.push(...similar);
-      }
-      return {skill,label:`형용사의 알맞은 형태를 고르세요 · ${v.label}`,display:`${v.display}
-(${q.meaning})`,options:uniqueOptions(options,v.correct),answer:v.correct,difficulty:level};
+      const v=variants[(source.id+quiz.index)%variants.length];
+      return {skill,label:"문맥에 맞는 형용사 형태를 고르세요",display:v.display,options:uniqueOptions([f.ms,f.fs,f.mp,f.fp],v.correct),answer:v.correct,difficulty:level};
     }
     const pronouns={je:"je",tu:"tu",ilElle:"il/elle",nous:"nous",vous:"vous",ilsElles:"ils/elles"};
     const availableKeys=Object.keys(pronouns).filter(key=>{
@@ -243,7 +248,7 @@ function makeQuestion(q,requestedSkill){
   const lessonContext=nearby.filter(w=>w.exampleKr&&w.lesson===q.lesson);
   const fallback=[...sameContext,...lessonContext,...nearby].map(w=>w.exampleKr).filter(value=>!isWeakDistractor(value,q.exampleKr));
   const distractors=curatedOptions(q,"exampleDistractors",fallback);
-  return {skill,label:"문장의 뜻을 정확하게 고르세요",display:q.example,options:uniqueOptions(distractors,q.exampleKr),answer:q.exampleKr,difficulty:level};
+  return {skill,label:"문장을 듣고 알맞은 뜻을 고르세요",display:"🔊 오디오를 먼저 듣고 알맞은 뜻을 골라보세요",audioText:q.example,audioKind:"sentence",options:uniqueOptions(distractors,q.exampleKr),answer:q.exampleKr,difficulty:level};
 }
 
 const CAT_GUIDES={
@@ -251,7 +256,7 @@ const CAT_GUIDES={
   article:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit-vector.svg",line:"관사와 명사의 성을 함께 확인하자냥!",theme:"petit"},
   form:{name:"쁘띠냥 · Petit",src:"./assets/characters/petit-vector.svg",line:"형태가 어떻게 바뀌는지 살펴보자냥!",theme:"petit"},
   listening:{name:"치즈냥 · Fromage",src:"./assets/characters/fromage-vector.svg",line:"귀를 쫑긋! 소리를 잘 들어보자냥!",theme:"fromage"},
-  example:{name:"라벤더냥 · Lavande",src:"./assets/characters/lavande-vector.svg",line:"문장 속 단서를 찾아 읽어보자냥!",theme:"lavande"}
+  example:{name:"라벤더냥 · Lavande",src:"./assets/characters/lavande-vector.svg",line:"먼저 문장을 듣고 뜻을 골라보자냥!",theme:"lavande"}
 };
 function guideFor(skill){return CAT_GUIDES[skill]||CAT_GUIDES.meaning}
 const CHARACTER_STATES={
@@ -392,7 +397,7 @@ window.startDaily=()=>{quiz={items:selectDailyWords(),index:0,skill:"meaning",an
 window.startQuiz=skill=>{
   let pool=lessonWords();
   if(skill==="article") pool=pool.filter(w=>w.type==="noun"&&w.articlePractice!==false);
-  if(skill==="form") pool=pool.filter(w=>w.type==="noun"||w.type==="verb"||w.type==="adjective");
+  if(skill==="form") pool=pool.filter(w=>w.type==="noun"||w.type==="verb"||adjectiveEligible(w));
   if(!pool.length) pool=WORDS.filter(w=>skill!=="article"||(w.type==="noun"&&w.articlePractice!==false));
   quiz={items:shuffled(pool).slice(0,8),index:0,skill,answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};showScreen("quizScreen");renderQuiz()
 };
@@ -408,7 +413,7 @@ function renderQuiz(){
   const guide=guideFor(question.skill);$("quizCat").src=guide.src;$("quizCat").dataset.state="idle";$("quizCatName").textContent=guide.name;$("quizGuideLine").textContent=guide.line;const guidePanel=document.querySelector(".quiz-guide-panel");if(guidePanel)guidePanel.dataset.guide=guide.theme||"petit";const quizScreen=$("quizScreen");if(quizScreen)quizScreen.dataset.skill=question.skill;
   $("quizWord").textContent=question.display;$("quizLabel").textContent=`${question.label} · ${DIFFICULTY_LABELS[question.difficulty]}`;
   const audioPanel=$("quizAudioPanel");audioPanel.classList.toggle("hidden",question.skill!=="listening"&&question.skill!=="example");
-  if($("audioHint")) $("audioHint").textContent=question.skill==="listening"?(question.audioKind==="sentence"?"문장을 끝까지 듣고 골라 보세요":"처음에는 보통 속도로 들어 보세요"):"문장 발음을 확인해 보세요";
+  if($("audioHint")) $("audioHint").textContent=question.skill==="listening"?(question.audioKind==="sentence"?"문장을 끝까지 듣고 골라 보세요":"처음에는 보통 속도로 들어 보세요"):question.skill==="example"?"먼저 문장을 듣고 뜻을 고른 뒤 아래 문장을 확인해 보세요":"문장 발음을 확인해 보세요";
   const box=$("quizOptions");box.innerHTML="";
   question.options.forEach((o,index)=>{const b=document.createElement("button");b.className="quiz-option";b.dataset.correct=String(o.ok);b.innerHTML=`<span class="option-letter">${String.fromCharCode(65+index)}</span><span class="option-text"></span>`;b.querySelector(".option-text").textContent=o.label;b.onclick=()=>answerQuiz(o.ok,b,q);box.appendChild(b)});
   if(question.skill==="listening")setTimeout(()=>playCurrentQuizAudio(false,true),420)
