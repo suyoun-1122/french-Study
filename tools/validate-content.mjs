@@ -15,6 +15,6 @@ for(const w of words){
   if(new Set(ds).size!==ds.length) errors.push(`${w.id}: 뜻 오답 중복`);
   if(ds.includes(w.meaning)) errors.push(`${w.id}: 정답이 오답 후보에 포함`);
 }
-if(words.length!==100) errors.push(`단어 수 ${words.length}개 (예상 100)`);
+if(words.length!==100) errors.push(`단어 수 ${words.length}개 (예상 500)`);
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
 console.log(`검증 통과: 단어 ${words.length}개, ID/필수값/명사 성·관사/오답 후보 정상`);

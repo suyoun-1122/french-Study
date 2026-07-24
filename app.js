@@ -1,7 +1,7 @@
 import { speakFrench } from "./audio.js";
 import { todayKey, recordResult, getDueWords } from "./review.js";
 
-const APP_VERSION="4.5.9";
+const APP_VERSION="4.6.0";
 const $=id=>document.getElementById(id);
 let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordIndex=0,wordFilter="all",wordSearch="",recipeFilter="all",collectionFilter="all";
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};
@@ -107,7 +107,7 @@ const semanticPool=q=>{
     .filter((w,i,a)=>a.findIndex(x=>x.id===w.id)===i);
 };
 
-const DIFFICULTY_LABELS={1:"CE1 · 기초",2:"CE1 · 연습",3:"CE2 · 적용"};
+const DIFFICULTY_LABELS={1:"기초",2:"연습",3:"적용"};
 function masteryKey(wordId,skill){return `${wordId}:${skill}`}
 function getMastery(wordId,skill){
   const key=masteryKey(wordId,skill);
