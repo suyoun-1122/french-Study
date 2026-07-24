@@ -1,7 +1,7 @@
 import { speakFrench } from "./audio.js";
 import { todayKey, recordResult, getDueWords } from "./review.js";
 
-const APP_VERSION="4.5.8";
+const APP_VERSION="4.5.9";
 const $=id=>document.getElementById(id);
 let WORDS=[],LESSONS=[],RECIPES=[],INGREDIENTS={},currentLesson=1,currentWordIndex=0,wordFilter="all",wordSearch="",recipeFilter="all",collectionFilter="all";
 let quiz={items:[],index:0,skill:"meaning",answered:false,daily:false,combo:0,retryQueue:[],retryCount:{}};

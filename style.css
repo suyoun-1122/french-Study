@@ -422,3 +422,7 @@ button:focus-visible,input:focus-visible{outline:3px solid rgba(126,87,194,.42);
 
 /* V4.5.7 character artwork upgrade */
 .quiz-cat-wrap{width:88px;height:88px;border-radius:24px} .quiz-cat{width:86px!important;height:86px!important} .study-guide-panel img{width:82px;height:82px} .home-hero .hero-cat{width:182px;height:194px} @media(max-width:520px){.home-hero .hero-cat{width:142px;height:154px}.quiz-cat-wrap{width:78px;height:78px}.quiz-cat{width:76px!important;height:76px!important}.study-guide-panel img{width:70px;height:70px}}
+
+
+/* V4.5.9 richer character presentation */
+.quiz-cat-wrap{background:transparent!important;box-shadow:none!important;width:96px;height:96px} .quiz-cat{width:94px!important;height:94px!important;padding:0!important;border-radius:0!important;background:transparent!important;filter:drop-shadow(0 10px 14px rgba(70,49,92,.18));} .study-guide-panel img{width:88px;height:88px;padding:0!important;background:transparent!important;filter:drop-shadow(0 9px 14px rgba(70,49,92,.16));} .guide-card img{background:transparent!important} .home-hero .hero-cat{width:196px;height:208px} @media(max-width:520px){.quiz-cat-wrap{width:84px;height:84px}.quiz-cat{width:82px!important;height:82px!important}.study-guide-panel img{width:74px;height:74px}.home-hero .hero-cat{width:150px;height:160px}}
