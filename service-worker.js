@@ -1,5 +1,5 @@
-const CACHE = "yeonjae-french-v4-5-1-build3";
-const VERSION = "4.5.2";
+const CACHE = "yeonjae-french-v4-5-3";
+const VERSION = "4.5.3";
 const CORE = [
   "./", "./index.html", "./manifest.webmanifest",
   `./style.css?v=${VERSION}`,
@@ -39,22 +39,35 @@ self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  const networkFirst =
-    event.request.mode === "navigate" ||
+  const isNavigation = event.request.mode === "navigate";
+  const isFreshAsset =
     url.pathname.endsWith("index.html") ||
     url.pathname.endsWith("app.js") ||
     url.pathname.endsWith(".css") ||
     url.pathname.includes("/data/") ||
     url.pathname.endsWith("manifest.webmanifest");
 
-  if (networkFirst) {
+  if (isNavigation) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          if (response.ok) caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
+          if (response.ok) caches.open(CACHE).then(cache => cache.put("./index.html", response.clone()));
           return response;
         })
-        .catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
+        .catch(() => caches.match("./index.html"))
+    );
+    return;
+  }
+
+  if (isFreshAsset) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
     );
     return;
   }
